@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Markdown round trip</title>
+<!-- Tests for frontend/js/markdown.js. Serve frontend/ and open this page, for example:
+       py -m http.server 8765 --bind 127.0.0.1 --directory frontend
+       http://localhost:8765/tests/markdown-roundtrip.html
+     (or open the file directly in Edge or Chrome). It takes about 4 s. The report is the <pre id="report">
+     text, and document.title ends "PASS n/n" or "FAIL n/n". -->
+<style>
+  body { font: 14px/1.5 system-ui, sans-serif; margin: 16px; background: #fff; color: #1c1c1c; }
+  pre { white-space: pre-wrap; word-break: break-word; }
+  .fail { color: #a40000; } .pass { color: #1c6b2a; }
+  #live { position: absolute; left: -9999px; width: 600px; }
+</style>
+</head>
+<body>
+<h1>Markdown round trip</h1>
+<pre id="report">Running…</pre>
+<div id="live" aria-hidden="true"></div>
+<script>
+  // Any note content that manages to run script calls this
+  window.__xssHits = [];
+  window.__xss = n => { window.__xssHits.push(String(n)); };
+</script>
+<script src="../vendor/marked-18.0.14.umd.js"></script>
+<script src="../vendor/turndown-7.2.4.browser.umd.js"></script>
+<script src="../js/markdown.js"></script>
+<script src="mockup-notes.js"></script>
+<script src="markdown-cases.js"></script>
+<script src="markdown-roundtrip.js"></script>
+</body>
+</html>

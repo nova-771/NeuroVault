@@ -1,0 +1,33 @@
+# Exact versions for the packaged build: the ones the trial build runs on (requirements.txt pins only the top level).
+# build_exe.py installs with these as constraints, plus PyInstaller.
+bottle==0.13.4
+cffi==2.0.0
+charset-normalizer==3.4.4
+clr_loader==0.3.1
+cryptography==48.0.1
+numpy==2.4.3
+pdfminer.six==20260107
+pdfplumber==0.11.10
+pillow==12.3.0
+proxy_tools==0.1.0
+pycparser==3.0
+pypdfium2==5.13.0
+pythonnet==3.1.0
+pywebview==6.2.1
+sherpa-onnx==1.13.4
+sherpa-onnx-core==1.13.4
+sounddevice==0.5.5
+soundfile==0.14.0
+typing_extensions==4.15.0
+pyinstaller==6.22.3
+pyinstaller-hooks-contrib==2026.8
+keyring==25.7.0
+jaraco.classes==3.4.0
+jaraco.context==6.1.2
+jaraco.functools==4.6.0
+more-itertools==11.1.0
+backports.tarfile==1.2.0
+importlib_metadata==9.0.1
+zipp==4.1.0
+pywin32-ctypes==0.2.3
+truststore==0.10.4

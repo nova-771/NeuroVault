@@ -1,0 +1,323 @@
+/* ==== Build N · AI in the cloud with your own key (mockup R56's r56-css; cloud-ai.js) ==== */
+.app .cl-lede { margin: 0 0 var(--sp-3); }
+.app .cl-group { margin: var(--sp-4) 0 var(--sp-2); font-size: var(--fs-xs); font-weight: 700; color: var(--muted); }
+.app .cl-card { padding: var(--sp-4) 0; border-top: 1px solid var(--border); }   /* a flat list in the AI page, not a card in a card (Fix A 41) */
+.app .cl-group + .cl-card { border-top: 0; padding-top: var(--sp-2); }
+.app .cl-head { display: flex; align-items: center; gap: var(--sp-2); min-height: 24px; }
+.app .cl-head > svg { width: 18px; height: 18px; flex: none; color: var(--muted); }
+.app .cl-head .set-label { font-size: var(--fs-md); font-weight: 700; }
+.app .cl-head .chip { flex: none; }
+.app .cl-val { margin-left: auto; min-width: 0; font-size: var(--fs-xs); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.app .cl-facts { margin: var(--sp-3) 0 0; display: grid; gap: 6px; }
+.app .cl-fact { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); gap: var(--sp-3); font-size: var(--fs-sm); line-height: 1.45; }
+.app .cl-fact dt { color: var(--muted); font-size: var(--fs-xs); line-height: 1.7; }
+.app .cl-fact dd { margin: 0; color: var(--text); min-width: 0; overflow-wrap: anywhere; }
+.app .cl-keep dd { display: flex; align-items: flex-start; gap: 6px; }
+.app .cl-keep dd > svg { width: 16px; height: 16px; flex: none; margin-top: 2px; }
+.app .cl-keep.is-ok dd > svg { color: var(--success-text, var(--success)); }
+.app .cl-keep.is-warn dd > svg { color: var(--warning-text, var(--warning)); }
+.app .cl-links { display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--sp-3); margin-top: var(--sp-2); padding-left: calc(9.5em + var(--sp-3)); font-size: var(--fs-sm); }   /* the em matches the facts' first column */
+.app .cl-link { display: inline-flex; align-items: center; gap: 4px; height: var(--h-xs, 24px); padding: 0 4px; margin: 0 -4px; border: 0; border-radius: var(--r-sm); background: none; color: var(--accent-text, var(--accent)); font: inherit; font-size: var(--fs-xs); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.app .cl-link svg { width: 12px; height: 12px; flex: none; }
+.app .cl-link:hover { background: var(--hover); }
+.app .cl-link:active { background: var(--accent-bg); }
+.app .cl-checked { font-size: var(--fs-2xs, 11px); color: var(--muted); }
+.app .cl-acts { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); margin-top: var(--sp-3); padding-top: var(--sp-3); border-top: 1px solid var(--border); }
+.app .cl-acts .btn svg { width: var(--icon-sm); height: var(--icon-sm); }
+.app .cl-acts .btn[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
+.app .cl-acts .btn[aria-disabled="true"]:hover { background: transparent; }
+.app .cl-yes { margin-left: auto; display: inline-flex; align-items: center; gap: var(--sp-2); min-width: 0; }
+.app .cl-get { margin-top: 2px; }
+.app .cl-get .cl-link { margin: 0; padding: 0; }
+/* the walk-through: three numbered steps inside the card */
+.app .cl-walk { margin-top: var(--sp-3); padding-top: var(--sp-3); border-top: 1px solid var(--border); }
+.app .cl-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); }
+.app .cl-steps > li { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: var(--sp-3); }
+.app .cl-n { width: 24px; height: 24px; border-radius: var(--r-pill, 999px); display: inline-flex; align-items: center; justify-content: center; background: var(--accent-bg); color: var(--accent-text, var(--accent)); font-size: var(--fs-xs); font-weight: 700; font-variant-numeric: tabular-nums; }
+.app .cl-sb { display: grid; gap: 4px; justify-items: start; min-width: 0; }
+.app .cl-sb > .btn { margin-top: 4px; }
+.app .cl-sb > .btn[aria-disabled="true"] { opacity: .7; cursor: progress; }
+.app .cl-flabel { margin-top: 2px; }
+.app .cl-keyrow { display: flex; gap: var(--sp-2); width: 100%; max-width: 420px; }
+.app .cl-keyrow .cl-keyin { flex: 1 1 auto; min-width: 0; font-family: var(--mono, ui-monospace, monospace); letter-spacing: .02em; }
+.app .cl-keyrow .cl-eye { width: var(--h-md, 32px); height: var(--h-md, 32px); flex: none; }
+.app .cl-eye[aria-pressed="true"] { background: var(--accent-bg); color: var(--accent-text, var(--accent)); }
+/* a box you type in keeps its plain border when focused: no ring, no second frame (design profile, 2026-10-18) */
+.app .cl-keyin:focus, .app .cl-keyin:focus-visible { outline: none; box-shadow: none; border-color: var(--border); }
+.app .cl-res { display: flex; align-items: flex-start; gap: 6px; margin-top: 4px; font-size: var(--fs-sm); }
+.app .cl-res svg { width: 16px; height: 16px; flex: none; margin-top: 2px; }
+.app .cl-res.is-ok svg { color: var(--success-text, var(--success)); }
+.app .cl-res.is-bad { color: var(--danger-text, var(--danger)); }
+.app .cl-walk-foot { display: flex; justify-content: flex-end; gap: var(--sp-2); margin-top: var(--sp-3); }
+/* setup: the companies as choices, then the picked one's facts and steps (no card inside the setup card) */
+.app .cl-obprovs { margin-bottom: var(--sp-3); }
+.app .cl-short { display: inline-flex; align-items: center; gap: 4px; }
+.app .cl-short svg { width: 12px; height: 12px; flex: none; }
+.app .cl-obdetail { margin: var(--sp-2) 0 var(--sp-3); }
+/* the first-use notice */
+.app .cl-notice .modal-body > p:first-child { margin-top: 0; }
+.app .cl-notice .cl-facts { margin-top: var(--sp-2); }
+.app .cl-notice .cl-fact { grid-template-columns: 8em minmax(0, 1fr); }
+.app .cl-notice .cl-links { padding-left: calc(8em + var(--sp-3)); }
+.app .cl-once { margin: var(--sp-3) 0 0; }
+/* who answered, and where the next question goes */
+.app .cl-by { display: inline-flex; align-items: center; gap: 4px; }
+.app .cl-by > svg, .app .cl-next > svg:not(:first-child) { width: 12px; height: 12px; flex: none; }
+.app .cl-next .cl-next-t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* the free limit */
+.app .cl-limit .aic-err-text b { font-weight: 700; }
+.app .cl-limit .cl-link { margin: 0; }
+.app .cl-alts { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.app .cl-limit .btn[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
+@media (max-width: 720px) {
+  .app .cl-fact { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .app .cl-links { padding-left: 0; }
+}
+/* ==== end Build N · AI in the cloud ==== */
+
+/* ==== Build N · QC 91: every model, grouped by company (mockup R60's r60-css) ==== */
+.app .aic-menu.cl-pmenu { width: min(380px, calc(100% - 16px)); max-width: min(380px, calc(100% - 16px)); }   /* room for a model's name, chip and meter */
+.app .cl-pmenu .cl-mi { min-width: 0; overflow: hidden; }
+.app .cl-search { padding: 4px var(--sp-2) var(--sp-1); }
+.app .cl-search .cl-q { width: 100%; height: var(--h-sm, 28px); }
+.app .cl-search .cl-q:focus, .app .cl-search .cl-q:focus-visible { outline: none; box-shadow: none; border-color: var(--border); }
+.app .cl-mlist { max-height: min(46vh, 380px); overflow-y: auto; overscroll-behavior: contain; }
+.app .cl-ghead { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-2); padding: 8px var(--sp-2) 2px; font-size: var(--fs-2xs); font-weight: 700; color: var(--muted); }
+.app .cl-gcount { font-weight: 400; font-variant-numeric: tabular-nums; }
+.app .cl-gnote { padding: 0 var(--sp-2) 4px; font-size: var(--fs-2xs); color: var(--muted); }
+.app .cl-mi { gap: var(--sp-2); }
+.app .cl-mi .cl-mn { display: inline-flex; align-items: center; gap: 6px; flex: 1 1 auto; min-width: 0; overflow: hidden; }
+.app .cl-mi .cl-mname { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.app .cl-mi .aic-where { flex: none; max-width: 38%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.app .cl-rec { flex: none; font-size: var(--fs-2xs); padding: 0 6px; height: 18px; }
+.app .cl-vis { display: inline-flex; flex: none; color: var(--muted); }
+.app .cl-vis svg { width: 14px; height: 14px; }
+.app .cl-none { padding: var(--sp-2); font-size: var(--fs-xs); color: var(--muted); }
+.app .cl-mfoot { display: flex; align-items: center; gap: var(--sp-2); padding: 6px var(--sp-2); font-size: var(--fs-2xs); color: var(--muted); border-top: 1px solid var(--border); }
+.app .cl-mfoot > span { flex: 1 1 auto; min-width: 0; }
+.app .cl-mfoot .cl-link { margin: 0; flex: none; }
+/* Settings: a company's models */
+.app .cl-cm { margin-top: var(--sp-3); padding-top: var(--sp-3); border-top: 1px solid var(--border); }
+.app .cl-cm-head { display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; }
+.app .cl-cm-head .cl-cm-state { flex: 1 1 auto; min-width: 0; }
+.app .cl-cm-list { display: grid; gap: 4px; margin-top: var(--sp-2); }
+.app .cl-cm-row { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto; gap: var(--sp-3); align-items: center; font-size: var(--fs-sm); }
+.app .cl-cm-row:has(.cl-meter) { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto auto; }
+.app .cl-cm-name { display: inline-flex; align-items: center; gap: 6px; min-width: 0; }
+.app .cl-cm-id { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--mono, ui-monospace, monospace); font-size: var(--fs-2xs); color: var(--muted); }
+.app .cl-cm-ctx { font-size: var(--fs-2xs); color: var(--muted); white-space: nowrap; }
+.app .cl-cm-more { margin-top: 4px; }
+.app .cl-cm-note { margin: 4px 0 0; }
+/* ==== end Build N · QC 91 ==== */
+
+/* ==== Build N · QC 92: what's left of a free limit (a small ring, amber at 75%, red at 90%, always with words) ==== */
+.app .cl-meter { display: inline-flex; align-items: center; gap: 4px; flex: none; font-size: var(--fs-2xs); color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.app .cl-ring-svg { width: 14px; height: 14px; flex: none; }
+.app .cl-ring-bg { fill: none; stroke: var(--border); stroke-width: 2.5; }
+.app .cl-ring-fg { fill: none; stroke: var(--success, var(--accent)); stroke-width: 2.5; stroke-linecap: round; }
+.app .cl-meter.is-amber { color: var(--warning-text, var(--warning)); }
+.app .cl-meter.is-amber .cl-ring-fg { stroke: var(--warning); }
+.app .cl-meter.is-red { color: var(--danger-text, var(--danger)); font-weight: 700; }
+.app .cl-meter.is-red .cl-ring-fg { stroke: var(--danger); }
+.app .cl-mi .cl-meter { margin-left: auto; }
+.app .cl-usage { margin-top: var(--sp-3); padding-top: var(--sp-3); border-top: 1px solid var(--border); }
+.app .cl-urow { display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--sp-3); margin-top: 6px; font-size: var(--fs-sm); }
+.app .cl-ul { min-width: 9em; font-weight: 600; }
+.app .cl-ud { font-size: var(--fs-2xs); color: var(--muted); }
+.app .cl-usrc, .app .cl-unone { margin: 6px 0 0; }
+/* the ring by Send, with a cloud model: its card on hover (after about a second) and at once on focus */
+.app .aic-meter.cl-ring { position: relative; cursor: default; }
+.app .aic-meter.cl-ring.is-amber .aic-ring { stroke: var(--warning); }
+.app .aic-meter.cl-ring.is-red .aic-ring { stroke: var(--danger); }
+.app .aic-meter.cl-ring.is-red .num { color: var(--danger-text, var(--danger)); font-weight: 700; }
+.app .cl-ringpop { position: absolute; right: -8px; bottom: calc(100% + 8px); z-index: var(--z-menu, 30); display: grid; gap: 2px; width: max-content; max-width: 300px; padding: 6px 10px;
+  border: 1px solid var(--border); border-radius: var(--r-md); background: var(--card); color: var(--text); box-shadow: var(--shadow-float); font-size: var(--fs-xs); line-height: 1.45;
+  text-align: left; white-space: normal; visibility: hidden; opacity: 0; transition: opacity .12s ease 0s, visibility 0s linear .12s; pointer-events: none; }
+.app .aic-meter.cl-ring:hover .cl-ringpop { visibility: visible; opacity: 1; transition-delay: 1s, 1s; }
+.app .aic-meter.cl-ring:focus .cl-ringpop { visibility: visible; opacity: 1; transition-delay: 0s; }
+/* at 90%: a heads-up above the input, never over it */
+.app .cl-heads { display: flex; flex-wrap: wrap; align-items: center; gap: 6px var(--sp-2); margin: 0 var(--sp-3) var(--sp-2); padding: 6px var(--sp-2) 6px var(--sp-3); border: 1px solid var(--border);
+  border-left: 3px solid var(--warning); border-radius: var(--r-sm); background: var(--card); font-size: var(--fs-xs); }
+.app .cl-heads > svg { width: 16px; height: 16px; flex: none; color: var(--warning-text, var(--warning)); }
+.app .cl-heads > span:first-of-type { flex: 1 1 14em; min-width: 0; }
+.app .cl-offer { display: inline-flex; flex-wrap: wrap; gap: var(--sp-2); }
+/* ==== end Build N · QC 92 ==== */
+
+/* ==== Build N · R60: Settings → AI models, reworked (ai-settings.js): sections with a one-line intro, rows for the models on this
+   PC, one page or four tabs. Flat: nothing is a card in a card ==== */
+.app .ais-sec { padding: var(--sp-4) 0 var(--sp-2); border-top: 1px solid var(--border); }
+.app .ais-panel > .ais-sec:first-child { border-top: 0; padding-top: var(--sp-2); }
+.app .ais-sh { margin-bottom: var(--sp-2); }
+.app .ais-st { margin: 0; font-size: var(--fs-md); font-weight: 700; }
+.app .ais-st:focus { outline: none; }
+.app .ais-si { margin: 2px 0 0; font-size: var(--fs-sm); color: var(--muted); }
+.app .ais-ctl { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--sp-2); flex: none; }
+.app .ais-sub { margin: 0 0 var(--sp-2); }
+.app .ais-pc { display: flex; align-items: flex-start; gap: 6px; margin: var(--sp-2) 0 0; }
+.app .ais-pc svg { width: 16px; height: 16px; flex: none; margin-top: 2px; color: var(--muted); }
+/* the models on this PC: rows */
+.app .ais-lms { display: grid; }
+.app .ais-lm { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3) 0; border-top: 1px solid var(--border); }
+.app .ais-lm:first-child { border-top: 0; }
+.app .ais-lm-main { flex: 1 1 auto; min-width: 0; display: grid; gap: 2px; }
+.app .ais-lm-name { display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--sp-2); }
+.app .ais-lm-meta b { color: var(--text); font-weight: 700; font-variant-numeric: tabular-nums; }
+.app .ais-lm-act { display: flex; align-items: center; gap: var(--sp-2); flex: none; }
+.app .ais-lm-act .btn svg { width: var(--icon-sm); height: var(--icon-sm); }
+.app .ais-lm .ai-dl { display: flex; align-items: center; gap: var(--sp-2); margin-top: 4px; }
+.app .ais-lm .ai-dl .progress { flex: 1 1 auto; }
+.app .ais-lm.is-use .ais-lm-name .set-label { color: var(--accent-text, var(--accent)); }
+.app .ais-rm svg { width: 16px; height: 16px; }
+/* four tabs */
+.app .ais-tabs { display: flex; gap: 2px; margin: 0 0 var(--sp-2); border-bottom: 1px solid var(--border); overflow-x: auto; }
+.app .ais-tab { height: var(--h-md, 32px); padding: 0 var(--sp-3); border: 0; border-bottom: 2px solid transparent; background: none; color: var(--muted); font: inherit; font-size: var(--fs-sm); font-weight: 600; cursor: pointer; white-space: nowrap; }
+.app .ais-tab:hover { color: var(--text); }
+.app .ais-tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); }
+@media (max-width: 720px) { .app .ais-lm { flex-wrap: wrap; } .app .ais-lm-act { width: 100%; justify-content: flex-end; } }
+/* ==== end Build N · R60 AI settings ==== */
+
+/* ==== Build N · QC 93: the attachments that go with the next question, named above the input ==== */
+.app .cl-attline { display: flex; align-items: flex-start; gap: 6px; margin: 0 var(--sp-3) var(--sp-2); padding: 6px var(--sp-2); border: 1px solid var(--border); border-radius: var(--r-sm); background: var(--card); font-size: var(--fs-xs); color: var(--text); }
+.app .cl-attline > svg { width: 14px; height: 14px; flex: none; margin-top: 2px; color: var(--muted); }
+.app .cl-attline > span { min-width: 0; overflow-wrap: anywhere; }
+.app .cl-attline.is-none { color: var(--muted); }
+/* QC 101: each file and what happens to it; the off hint with its Turn on; the paperclip picker by the input */
+.app .cl-attline .cl-att-body { display: grid; gap: 2px; min-width: 0; flex: 1 1 auto; }
+.app .cl-attline .cl-att-body > span { overflow-wrap: anywhere; }
+.app .cl-att-list { display: grid; gap: 1px; margin: 0; padding: 0; list-style: none; max-height: 7.5em; overflow-y: auto; }
+.app .cl-att-i { display: flex; flex-wrap: wrap; gap: 0 6px; min-width: 0; }
+.app .cl-att-n { min-width: 0; overflow-wrap: anywhere; font-weight: 600; }
+.app .cl-att-s { color: var(--muted); overflow-wrap: anywhere; }
+.app .cl-att-i.is-trimmed .cl-att-s { color: var(--warning-text, var(--text)); }
+.app .cl-att-i.is-unreadable .cl-att-n { font-weight: 400; color: var(--muted); }
+.app .cl-attline.is-hint { align-items: center; }
+.app .cl-attline.is-hint > span { flex: 1 1 auto; }
+.app .cl-attline.is-hint .btn { flex: none; margin: -4px 0; }
+.app .cl-attbtn { position: relative; }
+.app .cl-attbtn-n { position: absolute; right: -2px; top: -2px; min-width: 14px; height: 14px; padding: 0 3px; border-radius: 7px; background: var(--accent); color: var(--on-accent); font-size: var(--fs-2xs); line-height: 14px; font-weight: 700; text-align: center; }
+.app .cl-attwrap { position: relative; }
+.app .cl-attm { position: absolute; left: var(--sp-3); right: var(--sp-3); bottom: calc(100% - var(--sp-2)); z-index: calc(var(--z-menu, 30) + 2); display: flex; flex-direction: column; gap: 4px; max-height: min(320px, 50vh); overflow: hidden; padding: 6px;   /* QC 106: a column: its head and search fixed, its list scrolls */
+  border: 1px solid var(--border-strong); border-radius: var(--r-md, 8px); background: var(--card); box-shadow: var(--shadow-md, 0 6px 20px rgba(0,0,0,.25)); font-size: var(--fs-sm); }
+.app .cl-attm-h { display: flex; align-items: center; gap: 4px; padding: 2px 4px; font-weight: 600; color: var(--text); }
+.app .cl-attm-list { display: flex; flex-direction: column; gap: 1px; flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.app .cl-attm-h, .app .cl-attm-q, .app .cl-attm-more { flex: none; }
+.app .cl-mid { display: flex; min-width: 0; flex: 1 1 auto; white-space: nowrap; }   /* QC 106: one line, cut in the middle */
+.app .cl-mid-a { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.app .cl-mid-b { flex: none; white-space: nowrap; }
+.app .cl-attm-row .cl-att-s, .app .cl-attm-add .cl-att-s { flex: none; white-space: nowrap; }
+.app .cl-attm-row, .app .cl-attm-add { display: flex; align-items: center; gap: var(--sp-2); min-width: 0; padding: 5px 6px; border-radius: var(--r-sm); color: var(--text); cursor: pointer; text-align: left; background: none; border: 0; font: inherit; }
+.app .cl-attm-row:hover, .app .cl-attm-add:hover, .app .cl-attm-add:focus-visible { background: var(--hover, var(--panel)); }
+.app .cl-attm-row input { flex: none; margin: 0; accent-color: var(--accent); }
+.app .cl-attm-row .cl-att-n, .app .cl-attm-add .cl-att-n { flex: 1 1 auto; font-weight: 400; }
+.app .cl-attm-q { width: 100%; }
+.app .cl-attm-empty { margin: 0; padding: 6px; color: var(--muted); }
+.app .cl-attm-more { justify-self: start; }
+/* ==== end Build N · QC 93 / QC 101 ==== */
+
+/* ==== Build N · QC 103: the Ask chat in its own window: it fills the window, its head is the strip you move it by ==== */
+body.is-pop .aic-win--pop { position: fixed; inset: 0; width: auto; height: auto; max-height: none; border-radius: 0; border: 0; box-shadow: none; display: flex; flex-direction: column; }
+body.is-pop .aic-win--pop .aic-head { cursor: default; user-select: none; }
+body.is-pop .aic-win--pop .aic-head .icon-btn[aria-pressed="true"] { color: var(--accent-text, var(--accent)); }
+body.is-pop .aic-win--pop .aic-thread { flex: 1 1 auto; min-height: 0; }
+body.is-pop .aic-pop-grip { pointer-events: auto; cursor: nwse-resize; right: 2px; bottom: 2px; width: 16px; height: 16px; z-index: 2; }
+body.is-pop .aic-pop-grip svg { width: 12px; height: 12px; }
+body.is-pop .aic-wait { flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-2); padding: var(--sp-4); text-align: center; color: var(--muted); font-size: var(--fs-sm); }
+body.is-pop .aic-wait svg { width: 24px; height: 24px; }
+/* ==== end Build N · QC 103 ==== */
+
+/* ==== Build N · R67: the Agent in the Ask chat (the drawn mockup R67's styles, as agt-): its steps, the change waiting, the notes it ends with ==== */
+.app .agt-hello .aic-hello-t { display: flex; align-items: center; gap: var(--sp-2); }
+.app .agt-hello .aic-hello-t svg { width: 18px; height: 18px; flex: none; color: var(--accent-text); }
+.app .agt-hello .aic-hello-sub + .aic-hello-sub { margin-top: var(--sp-1); }
+.app .agt-runbox { display: flex; flex-direction: column; gap: var(--sp-2); }
+.app .agt-run { display: flex; align-items: center; gap: 6px; font-size: var(--fs-xs); color: var(--muted); }
+.app .agt-tag { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px 1px 6px; border-radius: 999px; background: var(--accent-bg); color: var(--accent-text); font-weight: 600; }
+.app .agt-tag svg { width: 13px; height: 13px; }
+.app .agt-steps { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.app .agt-step { display: grid; grid-template-columns: 20px 1fr; column-gap: var(--sp-2); padding: 4px 0; font-size: var(--fs-sm); }
+.app .agt-si { grid-row: span 2; display: inline-flex; align-items: flex-start; justify-content: center; padding-top: 2px; color: var(--muted); }
+.app .agt-si svg { width: 15px; height: 15px; }
+.app .agt-step.is-run .agt-si { padding-top: 7px; }
+.app .agt-step.is-wait .agt-si, .app .agt-step.is-wait .agt-st { color: var(--accent-text); font-weight: 600; }
+.app .agt-step.is-done .agt-si svg { color: var(--success, var(--muted)); }
+.app .agt-ss { font-size: var(--fs-xs); color: var(--muted); }
+.app .agt-card { border: 1px solid var(--border-strong); border-radius: var(--r-md); background: var(--card); padding: var(--sp-3); display: flex; flex-direction: column; gap: var(--sp-2); }
+.app .agt-ch { display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-sm); }
+.app .agt-ch svg { width: 15px; height: 15px; flex: none; color: var(--accent-text); }
+.app .agt-cm { margin-left: auto; font-size: var(--fs-xs); color: var(--muted); white-space: nowrap; }
+.app .agt-task { display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-sm); font-weight: 600; }
+.app .agt-cbx { width: 15px; height: 15px; flex: none; border: 1.5px solid var(--border-strong); border-radius: 3px; }
+.app .agt-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.app .agt-quote { margin: 0; padding: 6px 10px; border-left: 3px solid var(--accent); background: var(--hover); border-radius: 0 var(--r-sm) var(--r-sm) 0; font-size: var(--fs-sm); }
+.app .agt-cact, .app .agt-nact { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.app .agt-nact { margin-top: var(--sp-2); }
+.app .agt-form { display: flex; flex-direction: column; gap: var(--sp-2); }
+.app .agt-fl { display: grid; grid-template-columns: 52px 1fr; align-items: center; gap: var(--sp-2); font-size: var(--fs-xs); color: var(--muted); }
+.app .agt-fl .field { height: var(--h-sm, 28px); min-width: 0; font-size: var(--fs-sm); color: var(--text); }
+.app .agt-in:focus, .app .agt-in:focus-visible { outline: none; box-shadow: none; border-color: var(--border); }   /* a box you type in: no ring (design profile) */
+.app .agt-note { display: flex; gap: var(--sp-2); padding: var(--sp-3); border-radius: var(--r-md); border: 1px solid var(--border); background: var(--card); font-size: var(--fs-sm); }
+.app .agt-note > svg { width: 16px; height: 16px; flex: none; margin-top: 2px; }
+.app .agt-note.is-ok > svg { color: var(--success, var(--accent-text)); }
+.app .agt-note.is-warn > svg { color: var(--warning-text, var(--warning)); }
+.app .agt-note b { display: block; }
+.app .agt-note .set-desc { display: block; margin-top: 2px; }
+.app .agt-undone { margin: 0; font-size: var(--fs-sm); color: var(--text); }
+.app .agt-sum { border: 1px solid var(--border); border-radius: var(--r-md); }
+.app .agt-sum > summary { display: flex; align-items: center; gap: var(--sp-2); padding: 6px 10px; font-size: var(--fs-xs); color: var(--muted); cursor: pointer; list-style: none; }
+.app .agt-sum > summary::-webkit-details-marker { display: none; }
+.app .agt-sum > summary span { flex: 1; min-width: 0; }
+.app .agt-sum > summary svg { width: 14px; height: 14px; flex: none; }
+.app .agt-sum[open] > summary svg { transform: rotate(180deg); }
+.app .agt-sum > .agt-steps { padding: 0 10px 6px; }
+.app .agt-answer p { margin: 0 0 6px; }
+.app .agt-step.is-skip .agt-st { color: var(--muted); }
+.app .agt-step.is-run .agt-si .aic-dots { transform: scale(.7); }
+.app .agt-ans { margin: var(--sp-2) 0; }
+.app .agt-meta { font-size: var(--fs-xs); color: var(--muted); }
+.app .agt-fl textarea.field { height: auto; min-height: 72px; padding: 6px 8px; resize: vertical; }
+.app .agt-lim { white-space: nowrap; }
+.app .agt-chips .agt-had { opacity: .75; }
+.app .agt-fields { display: grid; grid-template-columns: max-content 1fr; gap: 2px var(--sp-3); margin-top: 6px; font-size: var(--fs-xs); }   /* QC 112: every field it sets */
+.app .agt-f { display: contents; }
+.app .agt-fk { color: var(--muted); }
+.app .agt-fv { color: var(--text); font-weight: 600; }
+.app .agt-fv.is-none { color: var(--muted); font-weight: 400; }
+.app .agt-tsteps { margin: 6px 0 0; padding-left: 1.4em; font-size: var(--fs-xs); }
+.app .agt-fnote { margin: 6px 0 0; }   /* the tags it has already, then the new ones */
+.app .agt-link { color: var(--accent-text); text-decoration: underline; text-underline-offset: 2px; }
+.app .agt-was { display: flex; gap: var(--sp-2); font-size: var(--fs-xs); color: var(--muted); margin-bottom: 4px; }
+.app .agt-wl { flex: none; font-weight: 600; }
+.app .agt-fl select.field { height: var(--h-sm, 28px); }
+/* ==== end Build N · R67 ==== */
+
+/* ==== Build N · QC 108: a table in an answer, as a note's table: header tint, row lines, padding, a rounded frame that scrolls
+   sideways when the table is wide; words never break in the middle (the answer's overflow-wrap: anywhere stops at the table) ==== */
+.app .aic-a .ans-tbl-wrap { position: relative; margin: 0 0 var(--sp-2); }
+.app .aic-a .ans-tbl { overflow-x: auto; border: 1px solid var(--border-strong); border-radius: var(--r-md); background: var(--card); overscroll-behavior-x: contain; }
+.app .aic-a .ans-tbl:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.app .aic-a .ans-tbl table { border-collapse: collapse; width: 100%; margin: 0; font-size: var(--fs-sm); line-height: 1.5; }
+.app .aic-a .ans-tbl :is(th, td) { padding: 6px var(--sp-3); text-align: left; vertical-align: top; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border);
+  overflow-wrap: normal; word-break: normal; hyphens: manual; min-width: 6.5em; }
+.app .aic-a .ans-tbl :is(th, td):last-child { border-right: 0; }
+.app .aic-a .ans-tbl tbody tr:last-child td { border-bottom: 0; }
+.app .aic-a .ans-tbl th { background: var(--panel); font-weight: 600; color: var(--text); border-bottom-color: var(--border-strong); }
+.app .aic-a .ans-tbl td.is-num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; min-width: 0; }
+.app .aic-a .ans-tbl :is(th, td).is-long { overflow-wrap: anywhere; min-width: 10em; }   /* only a very long token (a link, a path) wraps */
+.app .aic-a .ans-tbl-acts { position: absolute; top: 4px; right: 4px; z-index: 1; display: flex; gap: 2px; padding: 2px; border-radius: var(--r-sm); background: var(--card); box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,.2)); opacity: 0; transition: opacity .12s; }
+.app .aic-a .ans-tbl-wrap:hover .ans-tbl-acts, .app .aic-a .ans-tbl-wrap:focus-within .ans-tbl-acts { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .app .aic-a .ans-tbl-acts { transition: none; } }
+/* ==== end Build N · QC 108 ==== */
+
+/* ==== R69 · prompt-injection safety (decided 2026-10-20) ==== */
+/* an Agent card that came after reading something suspicious or from outside: amber, with its reasons; Add is still one click */
+.app .agt-card.is-amber { border-color: var(--warning); }
+.app .agt-after { margin: 0; }
+.app .agt-warn { display: flex; gap: var(--sp-2); padding: var(--sp-2) var(--sp-3); border-radius: var(--r-md); border: 1px solid var(--warning); background: var(--warning-bg); color: var(--warning-text); font-size: var(--fs-sm); }
+.app .agt-warn > svg { width: 16px; height: 16px; flex: none; margin-top: 2px; }
+.app .agt-warn ul { margin: 0; padding-left: var(--sp-3); }
+/* a picture from the web in an AI answer: not loaded; Show loads that one; a link shows its website after its words */
+.app .ai-pic { display: inline-flex; align-items: center; gap: var(--sp-2); max-width: 100%; padding: var(--sp-1) var(--sp-2); border: 1px dashed var(--border-strong); border-radius: var(--r-md); background: var(--card); color: var(--muted); font-size: var(--fs-sm); vertical-align: middle; }
+.app .ai-pic > svg { width: 15px; height: 15px; flex: none; }
+.app .ai-pic-t { min-width: 0; overflow-wrap: anywhere; }
+.app .ai-pic-h { color: var(--muted); }
+.app .ai-host { color: var(--muted); font-size: var(--fs-xs); }

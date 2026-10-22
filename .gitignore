@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Personal data: the live database, its WAL files and backups stay out of git
+*.db
+*.db-wal
+*.db-shm
+*.bak
+*.sqlite*
+
+# Per-machine settings (generated on first run from config.py defaults)
+config.json
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+
+# Source maps for vendored libraries
+*.map
+
+# AI and voice model files (downloaded by the app; hundreds of MB)
+models/
+*.gguf
+*.onnx
+*.bin
+
+# Local tooling and AI-session worktrees
+.claude/
+
+# Test and scratch data
+nv-test/
+converter-test/
+sandbox-tests/
+scratch/
+*.log
+screenshots/
+
+# Build output and release artifacts
+/build/
+/dist/
+NeuroVault-Setup-*.exe
+*-source.zip
+*.msi
+*.zip
+
+# Editors and OS
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

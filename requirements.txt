@@ -1,0 +1,42 @@
+pywebview==6.2.1
+
+# Phase 6B · voice rambler: microphone and offline speech to text. Without them the app runs, and the voice
+# dialog says what's missing. The Whisper model itself is downloaded from the app (Settings → Voice).
+numpy==2.4.3
+sounddevice==0.5.5
+sherpa-onnx==1.13.4
+# Build A · voice clips saved as Ogg Opus (libsndfile is bundled). Without it clips are saved as .wav.
+soundfile==0.14.0
+
+# Optional — enables global hotkeys for the timer (Ctrl+Alt+P/S/H) that
+# work even when the window isn't focused. The app runs fine without it.
+# keyboard==0.13.5
+
+# Build H (optional, approved 2026-10-16) — keeps NeuroVault in the tray when its window closes with a sticky or the
+# timer popped out, so they stay on the desktop. Without it, closing NeuroVault closes them too (after saving).
+# Optional like `keyboard` above: uncomment both to install. pystray draws its icon with Pillow.
+# pystray==0.19.5
+# pillow==12.3.0
+
+# Build K · PDF to Markdown (approved 2026-10-17; permissive licences only, see THIRD-PARTY-NOTICES.md). Word .docx files
+# need nothing: the standard library reads them. Without these, Convert says PDFs need pdfplumber.
+pdfplumber==0.11.10
+pdfminer.six==20260107
+pypdfium2==5.13.0
+# pdfplumber also needs Pillow (>=12.2.0, installed: 12.3.0); pdfminer.six needs cryptography and charset-normalizer.
+
+# Build N (R56, approved 2026-10-19): each person's own cloud AI key goes into Windows Credential Manager (MIT / BSD-3).
+# Without it the app runs, and Settings → AI models says cloud keys need keyring.
+keyring==25.7.0
+pywin32-ctypes==0.2.3
+jaraco.classes==3.4.0
+jaraco.functools==4.6.0
+jaraco.context==6.1.2
+more-itertools==11.1.0
+backports.tarfile==1.2.0
+
+# QC 81 (approved 2026-10-19, "yes to the trust score!"): HTTPS checked against Windows' own certificate store (netssl.py), so
+# downloads work where Python's bundle lacks a root Windows installs lazily or an antivirus adds. MIT, pure Python, no
+# dependencies. Without it the app uses Python's default checks. Wheel: truststore-0.10.4-py3-none-any.whl, 18,660 bytes,
+# sha256 adaeaecf1cbb5f4de3b1959b42d41f6fab57b2b1666adb59e89cb0b53361d981 (pip install --require-hashes checks it).
+truststore==0.10.4

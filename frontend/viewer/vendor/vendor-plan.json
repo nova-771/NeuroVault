@@ -1,0 +1,141 @@
+{
+ "note": "NOT downloaded yet: the user says yes first. Hashes from the npm registry and jsDelivr's listings (read 2026-10-19). packaging/fetch_viewer_vendor.py checks the tarball's sha512 integrity, then every listed file's sha256, and copies only these files.",
+ "packages": [
+  {
+   "key": "pdfjs",
+   "name": "pdfjs-dist",
+   "version": "6.4.299",
+   "licence": "Apache-2.0",
+   "dir": "pdfjs",
+   "tarball": "https://registry.npmjs.org/pdfjs-dist/-/pdfjs-dist-6.4.299.tgz",
+   "integrity": "sha512-AVl138zALtfaAPvADulE0PZThbYzCBS79nL4pOSL/6Sm/4AH5A21BD9VHt97OlCuzJuCpmeZtAtkinisF4Vb1g==",
+   "tarball_shasum": "4a46f5146ac6505564c1a5d472900be4df8bf628",
+   "files": {
+    "pdf.min.mjs": {
+     "from": "build/pdf.min.mjs",
+     "size": 458904,
+     "sha256": "57456c8e0c81e46be31174b499ef77f2b9f5ee46d04412ba627320a36755d4c2"
+    },
+    "pdf.worker.min.mjs": {
+     "from": "build/pdf.worker.min.mjs",
+     "size": 1264342,
+     "sha256": "9536359f1b8367850d485731ca1d5e45c159a7b7a0912325e539937aa21ceb18"
+    },
+    "LICENSE": {
+     "from": "LICENSE",
+     "size": 10174,
+     "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+    }
+   },
+   "folders": {
+    "cmaps": {
+     "from": "cmaps",
+     "files": 169,
+     "size": 1167747
+    },
+    "standard_fonts": {
+     "from": "standard_fonts",
+     "files": 16,
+     "size": 798046
+    }
+   },
+   "not_taken": [
+    "web/ (pdf_viewer components: not used, our own overlay)",
+    "wasm/ (useWasm false: no 'wasm-unsafe-eval' in the CSP)",
+    "legacy/",
+    "types/"
+   ]
+  },
+  {
+   "key": "docx",
+   "name": "docx-preview",
+   "version": "0.4.1",
+   "licence": "Apache-2.0",
+   "dir": "docx",
+   "tarball": "https://registry.npmjs.org/docx-preview/-/docx-preview-0.4.1.tgz",
+   "integrity": "sha512-Dv4g+LeE0swHpPvNC0lAT0YsR5Zq5pAxw7d3vHQ8EChBLgIrqqe9VPL5nVt2HBJap8bEZbXUI0TJob7kBeNU9w==",
+   "tarball_shasum": "257f03a118fef747d35967a0b79cc4ea98605bf4",
+   "files": {
+    "docx-preview.min.js": {
+     "from": "dist/docx-preview.min.js",
+     "size": 75527,
+     "sha256": "c4a133c65a112799e35b143c572dfff9e923a3bf39b5fd3b07a06aa0f8f530c2"
+    },
+    "LICENSE": {
+     "from": "LICENSE",
+     "size": 11558,
+     "sha256": "8668bf4417d161e4eb4d47d6044526e4914d9eb3c748573d9bb7e87708c1253f"
+    }
+   }
+  },
+  {
+   "key": "jszip",
+   "name": "jszip",
+   "version": "3.10.2",
+   "licence": "MIT OR GPL-3.0-or-later",
+   "dir": "jszip",
+   "tarball": "https://registry.npmjs.org/jszip/-/jszip-3.10.2.tgz",
+   "integrity": "sha512-3l+rb15IOWtUhU0H5MFqES/T6Kh7abYwjosBey/vD6hDt8zoEffkSC5Ws5SGtgVw3gBx2NEbhTeSW1+kWkpyTQ==",
+   "tarball_shasum": "9fee8cfaaffb601f6c8796ecc522e4f81cbe88bf",
+   "files": {
+    "jszip.min.js": {
+     "from": "dist/jszip.min.js",
+     "size": 97781,
+     "sha256": "7f839b2d4688b845c105ebf5d2f9803075f91ea0fe72bdaac176c3a04dd3d2c1"
+    },
+    "LICENSE.markdown": {
+     "from": "LICENSE.markdown",
+     "size": 33753,
+     "sha256": "566c953c6090b1218ca6217dd7359d45dde46581968586dc607d59a78af6a9c4"
+    }
+   }
+  },
+  {
+   "key": "dompurify",
+   "name": "dompurify",
+   "version": "3.4.17",
+   "licence": "MPL-2.0 OR Apache-2.0",
+   "dir": "dompurify",
+   "tarball": "https://registry.npmjs.org/dompurify/-/dompurify-3.4.17.tgz",
+   "integrity": "sha512-B/pSlYVHQ58kqISD/yDjuJ1yfzI34m1gF4lAod2bwSRhiN4K5Cl3H8Af7hqB2PmTL911tdEudnnXn5FnhRoz0w==",
+   "tarball_shasum": "074bbb24eaa419535ac19ffe7f663104b0e1543d",
+   "files": {
+    "purify.min.js": {
+     "from": "dist/purify.min.js",
+     "size": 29828,
+     "sha256": "cd37898f9782adf54820c413191b5691803f0f137c799d6edcfd38523b4c2c31"
+    },
+    "LICENSE": {
+     "from": "LICENSE",
+     "size": 11358,
+     "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    }
+   }
+  }
+ ],
+ "optional": [
+  {
+   "key": "mammoth",
+   "name": "mammoth",
+   "version": "1.13.0",
+   "licence": "BSD-2-Clause",
+   "dir": "mammoth",
+   "tarball": "https://registry.npmjs.org/mammoth/-/mammoth-1.13.0.tgz",
+   "integrity": "sha512-2cawcYFcP7ISfXbBcL9lmVgTNWo88v/52ND1gnywHtVT/pX0//puPnf0iMPV9ZgmuvNOE+zkIhDgZ9M2c2dDDg==",
+   "tarball_shasum": "c054d53bfe4f47ca4713f2e9af93abf5b10bd1f2",
+   "why": "only if a Word file breaks docx-preview (a simple view); not wired yet, needs >= 1.11.0 (CVE-2025-11849)",
+   "files": {
+    "mammoth.browser.min.js": {
+     "from": "mammoth.browser.min.js",
+     "size": 405060,
+     "sha256": "92914a3708cfdf1e62cb553d1856a7fedab21da83d8ee82845de2f897b368cab"
+    },
+    "LICENSE": {
+     "from": "LICENSE",
+     "size": 1307,
+     "sha256": "6663bbd049205d38a496ccacb412a151980b444627d38de218b3b809aef330f1"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor behaviour</title>
+<!-- Tests for the note editor (frontend/js/render-notes.js doFormat, actions.js editor events, markdown.js saving),
+     against design/editor-behaviour.md. It loads the real app (../index.html) in a frame and drives the real editor:
+     the toolbar's own buttons, selections set with the Selection/Range APIs, keys sent as keydown → beforeinput →
+     the browser's own editing command (see editor-behaviour.js for why), and checks both the editor DOM and the
+     Markdown the note would save.
+
+     Run it through the dev bridge on a fresh scratch database (never the real knowledge_os.db or config.json):
+       python dev_bridge.py --db <scratch>/test.db --config <scratch>/config.json --port 8813
+       http://localhost:8813/tests/editor-behaviour.html
+     It also runs without the bridge (py -m http.server 8765 --bind 127.0.0.1 --directory frontend) on the
+     sample vault; the Tasks-board sync cases then report SKIP. It takes about 20 s.
+     ?only=TASK filters cases by id prefix. The report is the <pre id="report"> text; document.title ends
+     "PASS n/n" or "FAIL f/n"; window.__editorResults holds one row per case. -->
+<style>
+  body { font: 14px/1.5 system-ui, sans-serif; margin: 16px; background: #fff; color: #1c1c1c; }
+  pre { white-space: pre-wrap; word-break: break-word; }
+  #app-frame { width: 1600px; height: 900px; border: 1px solid #bbb; display: block; margin-top: 12px; }
+  details summary { cursor: pointer; }
+</style>
+</head>
+<body>
+<h1>Editor behaviour</h1>
+<pre id="report">Loading the app…</pre>
+<!-- The frame must stay rendered (not display:none or in a closed <details>): focus and selections need layout -->
+<iframe id="app-frame" title="NeuroVault under test"></iframe>
+<script src="mockup-notes.js"></script>
+<script src="editor-behaviour.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "updated": "2026-10-17",
+  "about": "Build J: the dictionary NeuroVault downloads once, after asking (dictionary.py). Each entry pins the release file: its URL, exact size and sha256 (from GitHub's release listing). The first entry is the one used.",
+  "dictionaries": [
+    {
+      "id": "oewn-2025",
+      "name": "Open English WordNet 2025",
+      "short": "WordNet",
+      "version": "2025",
+      "file": "english-wordnet-2025.xml.gz",
+      "url": "https://github.com/globalwordnet/english-wordnet/releases/download/2025-edition/english-wordnet-2025.xml.gz",
+      "bytes": 11363503,
+      "sha256": "9ca6d1dcb75f822fdd66617f7d9da48142ace38dd544d6ad5e2feca1674ad3fe",
+      "disk_mb": 34,
+      "words": "about 127,000",
+      "licence": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source": "en-word.net",
+      "source_url": "https://en-word.net/",
+      "attribution": "Open English WordNet 2025 by the Open English WordNet team (en-word.net), CC BY 4.0. Based on Princeton WordNet: WordNet 3.1 Copyright 2011 by Princeton University. All rights reserved."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+/* ==== R68 · keep a project, folder or note off cloud AI (ai-lock.js). Tokens only. ==== */
+/* the badge on a project, folder or note that is kept off, and a quieter one on what sits inside it */
+.app .lk-badge { display: inline-flex; align-items: center; margin-left: auto; padding-left: var(--sp-2); color: var(--accent-text); flex: none; }
+.app .lk-badge svg { width: var(--icon-xs); height: var(--icon-xs); }
+.app .lk-badge.is-inside { color: var(--muted); }
+/* "Kept off cloud AI" in the note's header */
+.app .lk-chip { margin-right: var(--sp-2); flex: none; }
+/* Ask in a kept-off note: the notice, the answer's line, the model menu's note, the attachments line */
+.app .lk-note { display: flex; gap: var(--sp-2); padding: var(--sp-3); border-radius: var(--r-md); border: 1px solid var(--border); background: var(--card); font-size: var(--fs-sm); }
+.app .lk-note > svg { width: var(--icon-sm); height: var(--icon-sm); flex: none; margin-top: 2px; color: var(--accent-text); }
+.app .lk-note b { display: block; }
+.app .lk-note .set-desc { display: block; margin-top: 2px; }
+.app .lk-act { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-2); }
+.app .lk-line, .app .lk-att { display: flex; align-items: flex-start; gap: var(--sp-2); margin-top: var(--sp-2); font-size: var(--fs-xs); color: var(--muted); }
+.app .lk-att { margin: 0 0 var(--sp-2); padding: var(--sp-2) var(--sp-3); border-radius: var(--r-sm); background: var(--hover); color: var(--text); }
+.app .lk-line svg, .app .lk-att svg { width: var(--icon-xs); height: var(--icon-xs); flex: none; margin-top: 2px; color: var(--accent-text); }
+.app .lk-mnote { display: flex; gap: var(--sp-2); align-items: flex-start; margin: 2px var(--sp-2) var(--sp-2); padding: var(--sp-2); border-radius: var(--r-sm); background: var(--hover); font-size: var(--fs-xs); color: var(--text); }
+.app .lk-mnote svg { width: var(--icon-xs); height: var(--icon-xs); flex: none; margin-top: 2px; color: var(--accent-text); }
+.app .menu-item[aria-disabled="true"] svg { color: var(--muted); }
+/* Settings → AI models → Overview */
+.app .lk-name { display: inline-flex; align-items: center; gap: var(--sp-2); }
+.app .lk-name svg { width: var(--icon-xs); height: var(--icon-xs); color: var(--accent-text); }
+.app [data-lk-set] .set-row:last-child { border-bottom: 0; }
+.app [data-lk-set] select.field { width: 220px; max-width: 100%; }   /* a long project name never widens the page */
+.app [data-lk-set] .lk-name { min-width: 0; max-width: 100%; }
+.app [data-lk-set] .lk-name span, .app [data-lk-set] .set-label { overflow-wrap: anywhere; }
+/* ==== end R68 ==== */

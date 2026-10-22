@@ -1,0 +1,216 @@
+/* BUILD DV · the document viewer window (mockup R66). Drawn from R66's r66-css onto the app's own tokens and parts (app.css:
+   .btn, .icon-btn, .seg, .chip, .modal, .win-btn). The pages are white paper with dark ink in every theme, like any document
+   viewer; everything around them uses the theme. The three layout answers are data attributes on .dv-win (viewer.js LAYOUT). */
+.app.dv-win { --dv-paper: #ffffff; --dv-ink: #1f2328; --dv-ink2: #57606a; --dv-rule: #d0d7de; --dv-red: #c92a2a; --dv-amber: #c77700; --dv-blue: #1c6dd0; --dv-hl: #ffe066;
+  flex-direction: column; min-width: 0; min-height: 0; }
+/* the window bar: the file's name, its pages and the note it came from; a press on the empty part moves the window */
+.dv-wbar { height: var(--titlebar-h); flex: none; display: flex; align-items: center; gap: var(--sp-2); padding-left: var(--sp-3); background: var(--panel); border-bottom: 1px solid var(--border); user-select: none; }
+.dv-wbar .win-controls { height: 100%; }
+.dv-wfile { display: flex; align-items: center; gap: var(--sp-2); min-width: 0; }
+.dv-wfile > svg { width: 16px; height: 16px; flex: none; color: var(--muted); }
+.dv-wname { font-size: var(--fs-sm); font-weight: 600; }
+.dv-wmeta { font-size: var(--fs-xs); color: var(--muted); }
+.dv-fill { flex: 1; min-width: var(--sp-2); align-self: stretch; }
+/* the tools, in one bar under the window bar (R66 default "top") */
+.dv-bar { height: 44px; flex: none; display: flex; align-items: center; padding: 0 var(--sp-2); background: var(--panel); border-bottom: 1px solid var(--border); min-width: 0; }
+.dv-view, .dv-right, .dv-tools { display: flex; align-items: center; gap: 2px; flex: none; }
+.dv-right .btn { margin: 0 var(--sp-1); }
+.dv-zv, .dv-pg { min-width: 44px; text-align: center; font-size: var(--fs-sm); color: var(--text); }
+.dv-pg { min-width: 52px; color: var(--muted); }
+.dv-sep { width: 1px; height: 20px; background: var(--border); margin: 0 6px; flex: none; }
+.dv-win .icon-btn[aria-pressed="true"] { background: var(--accent-bg); color: var(--accent-text); }
+.dv-sw { width: 18px; height: 18px; flex: none; margin: 0 3px; padding: 0; border-radius: 50%; border: 2px solid var(--panel); box-shadow: 0 0 0 1px var(--border-strong); cursor: pointer; }
+.dv-sw[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--text); }
+.dv-sw[data-v="red"] { background: var(--dv-red); } .dv-sw[data-v="amber"] { background: var(--dv-amber); } .dv-sw[data-v="blue"] { background: var(--dv-blue); }
+.dv-body { flex: 1; min-height: 0; display: flex; }
+/* the other two answers for the tools: a rail at the left, or floating over the page */
+.dv-rail { width: 44px; flex: none; display: flex; flex-direction: column; align-items: center; padding: var(--sp-2) 0; background: var(--panel); border-right: 1px solid var(--border); overflow: auto; }
+.dv-rail .dv-tools { flex-direction: column; }
+.dv-rail .dv-sep { width: 20px; height: 1px; margin: 6px 0; }
+.dv-rail .dv-sw { margin: 3px 0; }
+.dv-float { position: absolute; top: var(--sp-3); left: 50%; transform: translateX(-50%); z-index: 3; padding: 4px 6px; background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-float); }
+.dv-win[data-bar="float"] .dv-pages { padding-top: 68px; }
+/* R66's other places: along the bottom, beside what you pick (a mini toolbar), and in the notes panel */
+.dv-bbar { height: 44px; flex: none; display: flex; align-items: center; justify-content: center; padding: 0 var(--sp-2); background: var(--panel); border-top: 1px solid var(--border); }
+.dv-ctx { position: absolute; z-index: 5; top: var(--sp-3); left: 50%; transform: translateX(-50%); padding: 4px 6px; background: var(--card); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-float); }
+.dv-ctx[hidden] { display: none; }
+.dv-win[data-bar="context"] .dv-pages { padding-top: 68px; }
+.dv-tsec { flex: none; border-bottom: 1px solid var(--border); margin-bottom: var(--sp-2); }
+.dv-tools.is-panel { display: grid; grid-template-columns: repeat(5, 32px); gap: 4px; padding: 0 var(--sp-3) var(--sp-3); align-items: center; justify-items: center; }
+.dv-tools.is-panel .dv-sep { display: none; }
+/* Tools: … in the status line, and its menu */
+.dv-tplace { flex: none; height: 22px; padding: 0 var(--sp-2); border: 0; border-radius: var(--r-sm); background: none; color: var(--text); font: inherit; font-size: var(--fs-xs); cursor: pointer; }
+.dv-tplace:hover, .dv-tplace[aria-expanded="true"] { background: var(--hover); }
+.dv-tmenu { top: auto; right: auto; width: 300px; z-index: var(--z-menu); }
+.dv-tm-t { display: flex; flex-direction: column; gap: 2px; min-width: 0; text-align: left; }
+.dv-tm-d { font-size: var(--fs-xs); color: var(--muted); }
+/* the page thumbnails or the outline, at the left */
+.dv-nav { width: 124px; flex: none; display: flex; flex-direction: column; min-height: 0; background: var(--panel); border-right: 1px solid var(--border); }
+.dv-nav.is-outline { width: 188px; }
+.dv-navseg { margin: var(--sp-2); flex: none; }
+.dv-navseg .seg-opt { font-size: var(--fs-xs); padding: 0 4px; flex: 1; }
+.dv-thumbs { flex: 1; min-height: 0; overflow: auto; padding: var(--sp-2) 0 var(--sp-3); display: flex; flex-direction: column; align-items: center; gap: var(--sp-3); }
+.dv-side .dv-thumbs { display: grid; grid-template-columns: repeat(2, 96px); justify-content: center; align-content: start; }
+.dv-th { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.dv-thumb { width: 72px; position: relative; padding: 0; border: 1px solid var(--border); border-radius: 2px; background: var(--dv-paper); cursor: pointer; overflow: visible; }
+.dv-thumb canvas { display: block; width: 100%; height: 100%; }
+.dv-thumb[aria-current="true"] { outline: 2px solid var(--accent); outline-offset: 2px; }
+.dv-tcnt { position: absolute; top: -7px; right: -7px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: var(--accent); color: var(--on-accent); font: 700 10px/16px var(--font); text-align: center; }
+.dv-tn { font-size: var(--fs-xs); color: var(--muted); }
+.dv-outline { flex: 1; min-height: 0; overflow: auto; padding: 0 var(--sp-2) var(--sp-2); display: flex; flex-direction: column; gap: 1px; }
+.dv-ol { display: flex; align-items: center; gap: var(--sp-2); min-width: 0; padding: 5px 6px; border: 0; border-radius: var(--r-sm); background: none; color: var(--text); font: inherit; font-size: var(--fs-sm); text-align: left; cursor: pointer; }
+.dv-ol:hover { background: var(--hover); }
+.dv-ol.is-sub { padding-left: 16px; } .dv-ol.is-sub2 { padding-left: 26px; }
+.dv-ol .truncate { flex: 1; min-width: 0; }
+.dv-olp { font-size: var(--fs-xs); color: var(--muted); }
+.dv-navnone { padding: var(--sp-2) var(--sp-3); font-size: var(--fs-xs); color: var(--muted); }
+/* one panel at the left with tabs (the other answer for where the notes sit) */
+.dv-side { width: 280px; flex: none; display: flex; flex-direction: column; min-height: 0; background: var(--panel); border-right: 1px solid var(--border); }
+.dv-sidebody { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: auto; }
+/* the document */
+.dv-doc { flex: 1; min-width: 0; position: relative; background: color-mix(in srgb, var(--text) 9%, var(--bg)); }
+.dv-pages { position: absolute; inset: 0; overflow: auto; padding: var(--sp-5) var(--sp-4); display: flex; flex-direction: column; align-items: center; gap: var(--sp-4); }
+.dv-win[data-flow="spread"] .dv-pages { flex-direction: row; flex-wrap: wrap; justify-content: center; align-content: flex-start; }
+.dv-win[data-flow="single"] .dv-page:not(.is-cur) { display: none; }
+.dv-page { flex: none; position: relative; overflow: hidden; background: var(--dv-paper); color: var(--dv-ink); box-shadow: 0 1px 3px rgba(0, 0, 0, .2), 0 0 0 1px rgba(0, 0, 0, .06); }
+.dv-content { position: absolute; left: 0; top: 0; transform-origin: 0 0; -webkit-user-select: text; user-select: text; }
+.dv-content canvas.dv-canvas { position: absolute; left: 0; top: 0; }
+/* PDF.js's text layer (our own rules: pdf_viewer.css isn't vendored): the words over the picture, invisible but selectable */
+.dv-content .textLayer { position: absolute; inset: 0; overflow: clip; line-height: 1; text-align: initial; opacity: 1; text-size-adjust: none; forced-color-adjust: none; transform-origin: 0 0; z-index: 1;
+  --scale-round-x: 1px; --scale-round-y: 1px; --min-font-size: 1; --text-scale-factor: calc(var(--total-scale-factor) * var(--min-font-size)); --min-font-size-inv: calc(1 / var(--min-font-size)); }
+.dv-content .textLayer :is(span, br) { position: absolute; color: transparent; white-space: pre; cursor: text; transform-origin: 0 0; }
+.dv-content .textLayer > :not(.markedContent), .dv-content .textLayer .markedContent span:not(.markedContent) { z-index: 1; --font-height: 0; font-size: calc(var(--text-scale-factor) * var(--font-height));
+  --scale-x: 1; --rotate: 0deg; transform: rotate(var(--rotate)) scaleX(var(--scale-x)) scale(var(--min-font-size-inv)); }
+.dv-content .textLayer .markedContent { display: contents; }
+.dv-content .textLayer .endOfContent { display: block; position: absolute; inset: 100% 0 0; z-index: 0; cursor: default; user-select: none; }
+.dv-content .textLayer ::selection { background: rgba(28, 109, 208, .3); }
+.dv-link { position: absolute; z-index: 2; cursor: pointer; }
+.dv-link:hover { background: rgba(28, 109, 208, .12); }
+/* the fake renderer's page (tests) and a Word page */
+.dv-fake { position: absolute; inset: 0; font: 400 12px/1.5 "Segoe UI", system-ui, sans-serif; color: var(--dv-ink); }
+.dv-fake > div { position: absolute; white-space: pre; }
+.dv-fake .is-h1 { font-weight: 700; font-size: 21px; } .dv-fake .is-h2 { font-weight: 700; font-size: 14px; }
+.dv-content section.docx { margin: 0 !important; box-shadow: none !important; }
+/* what you add: on the page, in percent of it, so it follows the zoom */
+.dv-ink { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+.dv-win[data-tool]:not([data-tool="select"]):not([data-tool="texthl"]) .dv-ink { pointer-events: auto; cursor: crosshair; }
+.dv-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.dv-svg .dv-s { fill: none; stroke-width: .45; stroke-linecap: round; stroke-linejoin: round; }
+.dv-svg .dv-a { fill: currentColor; opacity: .3; }
+.dv-svg .dv-t { fill: var(--dv-hl); opacity: .45; mix-blend-mode: multiply; }
+.dv-win[data-tool="select"] .dv-svg [data-id] { pointer-events: visiblePainted; cursor: pointer; }
+.dv-svg .is-sel { filter: drop-shadow(0 0 1.5px var(--accent)); }
+.dv-c-red { color: var(--dv-red); stroke: var(--dv-red); } .dv-c-amber { color: var(--dv-amber); stroke: var(--dv-amber); } .dv-c-blue { color: var(--dv-blue); stroke: var(--dv-blue); }
+.dv-mark { position: absolute; pointer-events: auto; }
+.dv-pin { width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--accent); color: var(--on-accent); font: 700 11px/1 var(--font); box-shadow: 0 0 0 2px #fff, 0 1px 3px rgba(0, 0, 0, .3); border: 0; padding: 0; cursor: pointer; }
+.dv-pin.is-sel { box-shadow: 0 0 0 2px #fff, 0 0 0 5px var(--accent), 0 1px 3px rgba(0, 0, 0, .3); }
+.dv-text { white-space: pre; font: 600 15px/1.2 "Segoe Print", "Comic Sans MS", cursive; transform: translateY(-100%); cursor: default; }
+.dv-text.is-sel, .dv-capn.is-sel { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.dv-capn { display: flex; align-items: center; gap: 6px; max-width: 60%; padding: 4px 8px; border-radius: 4px; background: #e8eefc; color: #1f2328; font: 600 11.5px/1.35 "Segoe UI", system-ui, sans-serif; cursor: default; }
+.dv-capn svg { width: 1em; height: 1em; flex: none; color: #1c4fa8; }
+.dv-typein { position: absolute; z-index: 6; width: 220px; height: var(--h-sm); pointer-events: auto; }
+.dv-hit { background: #ffe58a; color: inherit; border-radius: 2px; }
+.dv-content .textLayer .dv-hit { color: transparent; }
+.dv-hit.is-cur { background: #ffb347; box-shadow: 0 0 0 2px #a35200; }
+.dv-pnav { display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-sm); color: var(--text); }
+.dv-win:not([data-flow="single"]) .dv-pnav { display: none; }
+/* a document the viewer can't draw yet (its library isn't installed) or couldn't read */
+.dv-empty { margin: auto; max-width: 440px; display: flex; flex-direction: column; gap: var(--sp-3); padding: var(--sp-5); }
+.dv-empty h2 { margin: 0; font-size: var(--fs-md); }
+.dv-empty p { margin: 0; font-size: var(--fs-sm); color: var(--muted); }
+.dv-empty .btn { align-self: flex-start; }
+/* find in the document: a box you type in, so no focus ring (design profile) */
+.dv-find { position: absolute; top: var(--sp-2); right: var(--sp-4); z-index: 7; display: flex; align-items: center; gap: 2px; padding: 3px 3px 3px 10px; background: var(--card); border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-float); }
+.dv-win[data-bar="float"] .dv-find { top: 64px; }
+.dv-find-ic svg { width: 16px; height: 16px; color: var(--muted); display: block; }
+.dv-find-in { width: 168px; height: 28px; margin-left: 6px; border: 0; background: none; color: var(--text); font: inherit; font-size: var(--fs-sm); }
+.dv-find-in:focus, .dv-find-in:focus-visible { outline: none; box-shadow: none; }
+.dv-find-n { min-width: 48px; font-size: var(--fs-xs); color: var(--muted); }
+/* your notes, beside the pages */
+.dv-notes { width: 264px; flex: none; display: flex; flex-direction: column; min-height: 0; background: var(--panel); border-left: 1px solid var(--border); }
+.dv-nh { display: flex; align-items: center; justify-content: space-between; padding: var(--sp-3) var(--sp-3) var(--sp-2); font-size: var(--fs-sm); font-weight: 600; }
+.dv-nc { min-width: 20px; padding: 0 6px; border-radius: 10px; background: var(--hover); font-size: var(--fs-xs); text-align: center; }
+.dv-nl { flex: 1; min-height: 0; overflow: auto; margin: 0; padding: 0 var(--sp-2); list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.dv-note { display: grid; grid-template-columns: 22px 1fr; gap: 2px 8px; width: 100%; padding: 8px; border: 0; border-radius: var(--r-md); background: none; color: var(--text); font: inherit; font-size: var(--fs-sm); text-align: left; cursor: pointer; }
+.dv-note:hover { background: var(--hover); }
+.dv-note[aria-current="true"] { background: var(--accent-bg); }
+.dv-nb { grid-row: span 2; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--accent); color: var(--on-accent); font: 700 11px/1 var(--font); }
+.dv-nb.is-ic { background: var(--hover); color: var(--text); }
+.dv-nb svg { width: 13px; height: 13px; }
+.dv-nt { line-height: 1.4; overflow-wrap: anywhere; }
+.dv-nt.is-empty { color: var(--muted); }
+.dv-nm { font-size: var(--fs-xs); color: var(--muted); line-height: 1.4; }
+.dv-note[aria-current="true"] .dv-nm, .dv-note[aria-current="true"] .dv-nt.is-empty { color: var(--muted-on-accent); }
+.dv-nq { font-style: italic; }
+.dv-nedit { display: flex; flex-direction: column; gap: var(--sp-2); padding: 0 8px 8px 38px; }
+.dv-nedit textarea { min-height: 64px; height: auto; padding: 6px var(--sp-2); resize: vertical; font: inherit; font-size: var(--fs-sm); color: var(--text); }
+.dv-nedit textarea:focus, .dv-nedit textarea:focus-visible { outline: none; box-shadow: none; border-color: var(--accent); }
+.dv-nedit .btn { align-self: flex-start; }
+.dv-nfoot { margin: 0; padding: var(--sp-2) var(--sp-3) var(--sp-3); font-size: var(--fs-xs); color: var(--muted); }
+.dv-nempty { display: flex; flex-direction: column; gap: 4px; padding: var(--sp-3); font-size: var(--fs-sm); }
+.dv-nempty span { color: var(--muted); }
+/* the window's own status line: where the notes are saved */
+.dv-st { height: 28px; flex: none; display: flex; align-items: center; gap: var(--sp-3); padding: 0 var(--sp-3); background: var(--panel); border-top: 1px solid var(--border); font-size: var(--fs-xs); color: var(--muted); min-width: 0; }
+.dv-st-msg { flex: 1; min-width: 0; color: var(--text); }
+.dv-st-save { display: flex; align-items: center; gap: 6px; flex: none; }
+.dv-st-save svg { width: 13px; height: 13px; color: var(--success, currentColor); }
+.dv-st-save.is-error, .dv-st-save.is-error svg { color: var(--danger-text); }
+.dv-opts { display: flex; flex-direction: column; gap: var(--sp-2); }
+.dv-opt { display: flex; gap: var(--sp-2); align-items: flex-start; padding: var(--sp-2) var(--sp-3); border: 1px solid var(--border); border-radius: var(--r-md); cursor: pointer; }
+.dv-opt b { display: block; font-weight: 600; }
+.dv-opt input { margin-top: 4px; accent-color: var(--accent); }
+
+/* ==== R70 · the chosen design "Pro editor" (): a compact window bar, the tools as a ribbon of
+   labelled groups under it (R66's place, a setting, top by default), named colour squares, a dark canvas with crisp pages, and
+   your notes as tight rows; a mark with no words gets a box to type in. In a tab of NeuroVault's window there's no window bar. ==== */
+.dv-wbar { height: 30px; }
+.dv-wbar .win-btn { height: 30px; }
+.dv-wbar[hidden] { display: none; }
+.dv-dock svg { width: 14px; height: 14px; }
+body.is-embed .win-edge { display: none; }
+/* the ribbon */
+.dv-bar:has(.dv-ribbon) { height: auto; padding: 4px var(--sp-2); align-items: stretch; }
+.dv-ribbon { display: flex; align-items: stretch; flex: 1; min-width: 0; }
+.dv-tools--ribbon { display: flex; align-items: stretch; gap: 0; }
+.dv-rg { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 2px; padding: 0 10px; border-right: 1px solid var(--border); flex: none; }
+.dv-ribbon > .dv-rg:last-child { border-right: 0; }
+.dv-rgi { display: flex; align-items: center; gap: 1px; min-height: 32px; }
+.dv-rgl { font-size: var(--fs-xs); color: var(--muted); line-height: 1.2; }
+.dv-ribbon .dv-fill { flex: 1; }
+.dv-sqs { display: inline-flex; align-items: center; gap: 2px; }
+.dv-sq { display: inline-flex; align-items: center; gap: 5px; height: var(--h-sm); padding: 2px 6px 2px 4px; border: 0; border-radius: var(--r-sm); background: none; color: var(--text); font: inherit; font-size: var(--fs-xs); cursor: pointer; }
+.dv-sq i { display: block; width: 16px; height: 16px; border-radius: 3px; background: currentColor; }
+.dv-sq:hover { background: var(--hover); }
+.dv-sq[aria-pressed="true"] { background: var(--accent-bg); color: var(--accent-text); }
+.dv-sq i.dv-c-red { color: var(--dv-red); } .dv-sq i.dv-c-amber { color: var(--dv-amber); } .dv-sq i.dv-c-blue { color: var(--dv-blue); }
+/* the canvas and pages */
+.dv-doc { background: color-mix(in srgb, var(--text) 24%, var(--bg)); }
+.dv-page { box-shadow: 0 0 0 1px rgba(0, 0, 0, .3), 0 2px 6px rgba(0, 0, 0, .35); border-radius: 0; }
+.dv-pnav { color: var(--text); background: var(--panel); padding: 2px 8px; border-radius: var(--r-pill); }
+/* notes as rows */
+.dv-nh .icon-btn { margin-left: auto; }
+.dv-nh { gap: var(--sp-2); }
+.dv-nl { gap: 0; padding: 0; }
+.dv-n { border-bottom: 1px solid var(--border); }
+.dv-note { display: flex; align-items: center; gap: 8px; padding: 7px var(--sp-3); border-radius: 0; flex-wrap: wrap; }
+.dv-note .dv-nb { grid-row: auto; flex: none; }
+.dv-note .dv-nt { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; overflow-wrap: normal; }
+.dv-note .dv-nk { color: var(--muted); }
+.dv-note .dv-nm { flex: none; }
+.dv-note .dv-nq { flex-basis: 100%; padding-left: 30px; font-size: var(--fs-xs); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dv-note[aria-current="true"] { background: var(--accent-bg); box-shadow: inset 3px 0 0 var(--accent); }
+.dv-note[aria-current="true"] .dv-nk, .dv-note[aria-current="true"] .dv-nq { color: var(--muted-on-accent); }
+.dv-in { display: block; width: calc(100% - 30px - var(--sp-3) * 2); height: var(--h-sm); margin: 0 var(--sp-3) 8px calc(30px + var(--sp-3)); font-size: var(--fs-sm); }
+.dv-in:focus, .dv-in:focus-visible { outline: none; box-shadow: none; border-color: var(--accent); }
+.dv-nedit { padding: 0 var(--sp-3) 8px calc(30px + var(--sp-3)); }
+.dv-nfoot { border-top: 0; }
+/* a narrow window: the same groups, without their labels and the colours' names (our tooltip names a colour then), so the
+   ribbon stays one row of 40 px and the pages keep their room */
+.dv-bar:has(.dv-ribbon) { container: dvbar / inline-size; }
+@container dvbar (max-width: 1120px) {
+  .dv-rgl { display: none; }
+  .dv-rg { padding: 0 6px; }
+  .dv-sq span { display: none; }
+  .dv-sq { padding: 2px 4px; }
+}
+/* ==== end R70 · Pro editor ==== */

@@ -1,0 +1,128 @@
+/* NeuroVault design tokens: type, spacing, radius and control scales, the nine themes, accents and colour slots.
+   Extracted from design/vault-notes-mockups.html (R20). Theme, accent, font and text size are reader settings:
+   store.js sets them as body[data-theme|data-dark|data-accent|data-font|data-textsize|data-spacing]. */
+
+@font-face { font-family: 'OpenDyslexic'; font-weight: 400; font-style: normal; font-display: swap; src: url(../fonts/OpenDyslexic-Regular.woff) format('woff'); }
+@font-face { font-family: 'OpenDyslexic'; font-weight: 700; font-style: normal; font-display: swap; src: url(../fonts/OpenDyslexic-Bold.woff) format('woff'); }
+@font-face { font-family: 'Lexend'; font-weight: 400 700; font-style: normal; font-display: swap; src: url(../fonts/Lexend-Variable.woff2) format('woff2'); }
+@font-face { font-family: 'Atkinson Hyperlegible'; font-weight: 400; font-style: normal; font-display: swap; src: url(../fonts/AtkinsonHyperlegible-Regular.woff2) format('woff2'); }
+@font-face { font-family: 'Atkinson Hyperlegible'; font-weight: 700; font-style: normal; font-display: swap; src: url(../fonts/AtkinsonHyperlegible-Bold.woff2) format('woff2'); }
+
+/* the dark themes ask for dark scrollbars and form controls */
+[data-dark="true"] { color-scheme: dark; }
+
+/* ---- Scales (theme-independent) ---- */
+.app {
+  --scale: 1;
+  --fs-2xs: calc(11px * var(--scale)); --fs-xs: calc(12px * var(--scale)); --fs-sm: calc(13px * var(--scale));
+  --fs-md: calc(14px * var(--scale)); --fs-base: calc(15px * var(--scale)); --fs-lg: calc(18px * var(--scale));
+  --fs-xl: calc(22px * var(--scale)); --fs-2xl: calc(28px * var(--scale)); --fs-timer: calc(40px * var(--scale));
+  /* a page drawn at about a quarter of its size (PDF export preview): a picture of a page, so it sits under the 11px floor */
+  --fs-mini: 8px; --fs-mini-head: 11px;
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px; --sp-6: 32px;
+  --r-2xs: 3px; --r-xs: 5px; --r-sm: 7px; --r-md: 10px; --r-lg: 14px; --r-pill: 999px;   /* R10: 2xs for marks and swatches, xs for insets inside a control */
+  --h-xs: 24px; --h-sm: 28px; --h-md: 32px; --h-lg: 36px;
+  --row-pad: 10px; --row-gap: 4px;
+  --z-frame: 5;   /* Build DV: a document's viewer frame over its tab or pane (#dv-frames): above the page, under sticky bars, menus and dialogs */
+  --z-sticky: 10; --z-menu: 30; --z-modal: 50; --z-toast: 60;
+  --rail-w: 44px; --side-w: 280px; --insp-w: 260px;
+  --font: 'OpenDyslexic', 'Comic Sans MS', sans-serif;
+  --font-code: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+}
+/* Build E (R29, locked R5): Text size sizes the note text only (14 / 15 / 17 / 19px); the rest of the app stays Medium */
+.app { --editor-scale: 1; --editor-font-size: 15px; }
+[data-textsize="s"] .app { --editor-scale: calc(14 / 15); --editor-font-size: 14px; }
+[data-textsize="l"] .app { --editor-scale: calc(17 / 15); --editor-font-size: 17px; }
+[data-textsize="xl"] .app { --editor-scale: calc(19 / 15); --editor-font-size: 19px; }
+[data-spacing="compact"] .app { --row-pad: 6px; --row-gap: 2px; }   /* row_spacing in config.json; comfortable is the default */
+[data-font="lexend"] .app { --font: 'Lexend', system-ui, sans-serif; }
+[data-font="atkinson"] .app { --font: 'Atkinson Hyperlegible', system-ui, sans-serif; }
+[data-font="system"] .app { --font: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+
+/* ---- Themes: every colour token defined per theme ---- */
+.app { /* Paper (R1): the pasted palette with muted text raised to AA */
+  --bg: #f6f5f2; --panel: #f0efea; --card: #ffffff; --input: #ffffff; --border: #e3e1d9; --border-strong: #cfccc2;
+  --text: #1f1e1d; --muted: #66635e; --faint: #9a968f; --hover: rgba(31, 30, 29, .05);
+  --success: #15803d; --success-bg: #e3f3e8; --success-text: #166534;
+  --warning: #b45309; --warning-bg: #fbefd9; --warning-text: #92400e;
+  --danger: #c81e1e; --danger-bg: #fbe5e3; --danger-text: #a51b1b;
+  --info: #2563eb; --info-bg: #e3ebfb; --info-text: #1d4ed8;
+  --overlay: rgba(15, 15, 20, .45); --shadow: 0 1px 2px rgba(0,0,0,.06), 0 4px 14px rgba(0,0,0,.05);
+}
+[data-theme="sepia"] .app {
+  --bg: #f4ecd8; --panel: #ece2c9; --card: #fbf6ea; --input: #fbf6ea; --border: #ddd0b0; --border-strong: #c9b98f;
+  --text: #2e2618; --muted: #6a5d44; --faint: #9b8c6c; --hover: rgba(46, 38, 24, .06);
+}
+[data-theme="obsidian"] .app {
+  --bg: #16161a; --panel: #1c1c22; --card: #23232b; --input: #1f1f27; --border: #2e2e3a; --border-strong: #3d3d4c;
+  --text: #e8e6e3; --muted: #a3a1b2; --faint: #6a6879; --hover: rgba(255,255,255,.05);
+  --success: #4ade80; --success-bg: rgba(74,222,128,.14); --success-text: #86efac;
+  --warning: #fbbf24; --warning-bg: rgba(251,191,36,.14); --warning-text: #fcd34d;
+  --danger: #f87171; --danger-bg: rgba(248,113,113,.14); --danger-text: #fca5a5;
+  --info: #60a5fa; --info-bg: rgba(96,165,250,.14); --info-text: #93c5fd;
+  --overlay: rgba(0,0,0,.6); --shadow: 0 1px 2px rgba(0,0,0,.4), 0 6px 18px rgba(0,0,0,.35);
+}
+[data-theme="contrast"] .app {
+  --bg: #000000; --panel: #0b0b0b; --card: #121212; --input: #000000; --border: #5c5c5c; --border-strong: #8a8a8a;
+  --text: #ffffff; --muted: #d6d6d6; --faint: #a8a8a8; --hover: rgba(255,255,255,.1);
+  --success: #5ef08f; --success-bg: rgba(94,240,143,.18); --success-text: #8ff5b0;
+  --warning: #ffd23f; --warning-bg: rgba(255,210,63,.18); --warning-text: #ffe17a;
+  --danger: #ff7a7a; --danger-bg: rgba(255,122,122,.2); --danger-text: #ffaaaa;
+  --info: #7cb8ff; --info-bg: rgba(124,184,255,.18); --info-text: #a9d0ff;
+  --overlay: rgba(0,0,0,.7); --shadow: none;
+}
+/* R7: the PRD's Irlen / visual-stress themes. No pure white or pure black; muted text at AA or better */
+[data-theme="cream"] .app { --bg: #f6efdf; --panel: #eee5cf; --card: #faf5e8; --input: #faf5e8; --border: #e0d5b9; --border-strong: #ccbd98; --text: #2b261d; --muted: #5e5645; --faint: #958a72; --hover: rgba(43, 38, 29, .06); }
+[data-theme="sage"] .app { --bg: #e7efe3; --panel: #dce7d7; --card: #f0f5ed; --input: #f0f5ed; --border: #c8d8c1; --border-strong: #adc3a5; --text: #1e2a1e; --muted: #4a5b49; --faint: #84957f; --hover: rgba(30, 42, 30, .06); }
+[data-theme="sky"] .app { --bg: #e4edf5; --panel: #d8e3ee; --card: #eef4f9; --input: #eef4f9; --border: #c6d5e4; --border-strong: #a9bed3; --text: #1b2531; --muted: #485869; --faint: #7f90a2; --hover: rgba(27, 37, 49, .06); }
+[data-theme="buttercup"] .app { --bg: #f7f0cf; --panel: #efe6bd; --card: #fbf7e2; --input: #fbf7e2; --border: #e0d5a2; --border-strong: #cbbd82; --text: #29250f; --muted: #5a5232; --faint: #938a5f; --hover: rgba(41, 37, 15, .06); }
+[data-theme="slate"] .app {   /* Soft Slate: low-glare dark grey with warm off-white text */
+  --bg: #1e2024; --panel: #23262b; --card: #2a2d33; --input: #25282d; --border: #363a41; --border-strong: #474c55;
+  --text: #ece5d8; --muted: #b3ab9d; --faint: #7f796f; --hover: rgba(236, 229, 216, .06);
+  --success: #7fd19a; --success-bg: rgba(127,209,154,.14); --success-text: #a6e2b8;
+  --warning: #f0c36a; --warning-bg: rgba(240,195,106,.14); --warning-text: #f5d590;
+  --danger: #f08c80; --danger-bg: rgba(240,140,128,.14); --danger-text: #f6b0a7;
+  --info: #8fb8e8; --info-bg: rgba(143,184,232,.14); --info-text: #b5d0f0;
+  --overlay: rgba(0,0,0,.55); --shadow: 0 1px 2px rgba(0,0,0,.35), 0 6px 18px rgba(0,0,0,.3);
+}
+/* Accent per theme family (light themes / dark themes) */
+.app { --accent: #4839e8; --accent-bg: #e7e5fa; --accent-text: #3a2cc9; --on-accent: #ffffff; }
+/* v0.1.1 (UI cohesion review, must-fix 1 and 4): text on the danger fill, white on the light themes and the theme's own page colour on the
+   dark ones (white on a light red measured 2.4–2.8:1); second lines on an accent tint, the text colour mixed into the tint (grey measured
+   3.9–4.3:1 there). The checks measure both in all 9 themes, with every accent */
+.app { --on-danger: #ffffff; --muted-on-accent: color-mix(in srgb, var(--text) 80%, var(--accent-bg)); }
+[data-dark="true"] .app { --on-danger: var(--bg); }
+[data-dark="true"] .app { --accent: #a29bfe; --accent-bg: #2d2852; --accent-text: #c4bfff; --on-accent: #16161a; }
+
+/* ---- Timer (R5): KPI and display sizes; six project colour slots per theme family ---- */
+.app { --fs-kpi: var(--fs-xl); --fs-display: calc(52px * var(--scale));
+  /* six project colour slots per theme family, so a project's colour follows the theme */
+  --proj-1: #0d7c72; --proj-2: #b45309; --proj-3: #4839e8; --proj-4: #1f5fd6; --proj-5: #15803d; --proj-6: #be185d; }
+[data-dark="true"] .app {
+  --proj-1: #2dd4bf; --proj-2: #fbbf24; --proj-3: #a29bfe; --proj-4: #7aa7ff; --proj-5: #4ade80; --proj-6: #f472b6; }
+
+/* ---- R6: window bar, tree indent ---- */
+.app { --titlebar-h: 36px; --win-btn-w: 46px; --win-close: #c42b1c; --on-win-close: #ffffff; --tree-indent: 16px; }
+
+/* ---- R7: widget layers, time-left colours, sticky and highlight colours, editor spacing ---- */
+.app { --z-widget: 40; --z-desk: 45; --tab-h: 31px; --shadow-float: 0 2px 6px rgba(0,0,0,.08), 0 12px 32px rgba(0,0,0,.16);
+  /* time left on the quick timer: calm teal, warm amber, soft coral */
+  --time-calm: #0f766e; --time-warm: #b45309; --time-low: #c2410c;
+  /* sticky note headers, highlight marks and text colours stay pastel on every theme, with dark text on them */
+  --sticky-yellow: #f3df8a; --sticky-pink: #f2c4cf; --sticky-mint: #bfe3cc; --sticky-blue: #c3d8f0; --sticky-lilac: #d8cdf2; --on-sticky: #2a2618; --on-sticky-hover: rgba(42, 38, 24, .1);
+  --hl-yellow: #fbe7a1; --hl-green: #cdebc5; --hl-blue: #cfe0f7; --hl-pink: #f6d0dc; --hl-orange: #fbd6b4; --on-hl: #1f1e1d;
+  --tc-red: #b42318; --tc-orange: #a14a07; --tc-green: #157f3c; --tc-blue: #1d4ed8; --tc-violet: #5b3fd6; --tc-grey: #5d6470;
+  --ruler-dim: rgba(28, 24, 18, .5);
+  /* the exported "Clean professional" page is real white paper */
+  --paper-white: #ffffff; --paper-ink: #1a1a1a; --paper-line: #d4d4d4;
+  --editor-letter-spacing: 0em; --editor-word-spacing: 0em; --editor-line-height: 1.85; --editor-max-width: none; }
+[data-dark="true"] .app { --time-calm: #2dd4bf; --time-warm: #fbbf24; --time-low: #fb8a6b;
+  --tc-red: #ff9a91; --tc-orange: #fdba74; --tc-green: #86efac; --tc-blue: #93c5fd; --tc-violet: #c4b5fd; --tc-grey: #c3c7cf;
+  --ruler-dim: rgba(0, 0, 0, .58); --shadow-float: 0 2px 6px rgba(0,0,0,.4), 0 14px 36px rgba(0,0,0,.5); }
+
+/* ---- R9–R18: one icon size; top row 40px (R18); rail buttons 28px (R18); list rows in whole pixels (R10) ---- */
+:root { --icon: 18px; --head-h: 40px; --rail-btn: 28px; }
+/* ==== v0.1.1 fix round A: one size per component, from three tiers; the window buttons' 14px / 1.5px glyph is the one exception ==== */
+:root { --icon-sm: 16px; --icon-xs: 12px; --z-edge: 100; --z-tip: 2147483000; }
+/* ==== end fix round A ==== */
+.app { --list-line: 20px; }

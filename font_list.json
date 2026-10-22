@@ -1,0 +1,188 @@
+{
+ "_about": "Build E: the free reading fonts in Settings → Reading & comfort → More fonts. Each file is the family's official release on Google Fonts (the google/fonts repository, pinned to one commit so the bytes never change); bytes and sha256 are those exact files, checked after every download. All are SIL Open Font License 1.1. preview is a tiny cut (the sample line and the name only, a few KB) shipped in frontend/fonts/previews. OpenDyslexic Mono was left out: it is OFL, but its maker publishes no compiled Mono file (only .glyphs sources on GitHub; releases moved to itch.io and forge.hackers.town).",
+ "updated": "2026-10-16",
+ "fonts": [
+  {
+   "id": "atkinson-next",
+   "name": "Atkinson Hyperlegible Next",
+   "by": "Braille Institute",
+   "why": "The 2025 update: more weights, more languages",
+   "licence": "SIL Open Font License 1.1",
+   "licence_url": "https://openfontlicense.org",
+   "source": "Google Fonts (github.com/google/fonts, commit 47d54ca)",
+   "page": "https://github.com/googlefonts/atkinson-hyperlegible-next",
+   "fallback": "'Atkinson Hyperlegible', sans-serif",
+   "preview": "fonts/previews/atkinson-next.woff",
+   "files": [
+    {
+     "file": "AtkinsonHyperlegibleNext[wght].ttf",
+     "weight": "200 800",
+     "bytes": 114552,
+     "sha256": "5a455d1cfa099b601ab70751bb9673e8fe1854dc4500c80e1a220d0d75e31745",
+     "url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/atkinsonhyperlegiblenext/AtkinsonHyperlegibleNext%5Bwght%5D.ttf"
+    }
+   ]
+  },
+  {
+   "id": "lexend-deca",
+   "name": "Lexend Deca",
+   "by": "Thomas Jockin, Bonnie Shaver-Troup",
+   "why": "Lexend with a little more room between letters",
+   "licence": "SIL Open Font License 1.1",
+   "licence_url": "https://openfontlicense.org",
+   "source": "Google Fonts (github.com/google/fonts, commit 47d54ca)",
+   "page": "https://github.com/googlefonts/lexend",
+   "fallback": "'Lexend', sans-serif",
+   "preview": "fonts/previews/lexend-deca.woff",
+   "files": [
+    {
+     "file": "LexendDeca[wght].ttf",
+     "weight": "100 900",
+     "bytes": 175928,
+     "sha256": "d11c12298f431d7e416a1e615d33f2c2b98bda2318a0c186c8c94f08c2d90ce8",
+     "url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/lexenddeca/LexendDeca%5Bwght%5D.ttf"
+    }
+   ]
+  },
+  {
+   "id": "lexend-exa",
+   "name": "Lexend Exa",
+   "by": "Thomas Jockin, Bonnie Shaver-Troup",
+   "why": "Wider: for letters that seem to crowd together",
+   "licence": "SIL Open Font License 1.1",
+   "licence_url": "https://openfontlicense.org",
+   "source": "Google Fonts (github.com/google/fonts, commit 47d54ca)",
+   "page": "https://github.com/googlefonts/lexend",
+   "fallback": "'Lexend', sans-serif",
+   "preview": "fonts/previews/lexend-exa.woff",
+   "files": [
+    {
+     "file": "LexendExa[wght].ttf",
+     "weight": "100 900",
+     "bytes": 189908,
+     "sha256": "d03a5ef7cf352a5508c6a64dc7b7b9e50bb7afddba1a90d792a801a6f421a63c",
+     "url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/lexendexa/LexendExa%5Bwght%5D.ttf"
+    }
+   ]
+  },
+  {
+   "id": "lexend-giga",
+   "name": "Lexend Giga",
+   "by": "Thomas Jockin, Bonnie Shaver-Troup",
+   "why": "Wider still",
+   "licence": "SIL Open Font License 1.1",
+   "licence_url": "https://openfontlicense.org",
+   "source": "Google Fonts (github.com/google/fonts, commit 47d54ca)",
+   "page": "https://github.com/googlefonts/lexend",
+   "fallback": "'Lexend', sans-serif",
+   "preview": "fonts/previews/lexend-giga.woff",
+   "files": [
+    {
+     "file": "LexendGiga[wght].ttf",
+     "weight": "100 900",
+     "bytes": 192100,
+     "sha256": "a62c958e898995a2177f9683e3dad2a8da98b571a04601a15b4b2c4bb390c6f1",
+     "url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/lexendgiga/LexendGiga%5Bwght%5D.ttf"
+    }
+   ]
+  },
+  {
+   "id": "andika",
+   "name": "Andika",
+   "by": "SIL International",
+   "why": "Made for new readers: letters that are hard to mix up",
+   "licence": "SIL Open Font License 1.1",
+   "licence_url": "https://openfontlicense.org",
+   "source": "Google Fonts (github.com/google/fonts, commit 47d54ca)",
+   "page": "https://github.com/silnrsi/font-andika",
+   "fallback": "Verdana, sans-serif",
+   "preview": "fonts/previews/andika.woff",
+   "files": [
+    {
+     "file": "Andika-Regular.ttf",
+     "weight": "400",
+     "bytes": 669828,
+     "sha256": "202b96b1f174a4a43baefe885b40dacacb81786755efd08ed4b7704e79c45515",
+     "url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/andika/Andika-Regular.ttf"
+    },
+    {
+     "file": "Andika-Bold.ttf",
+     "weight": "700",
+     "bytes": 681008,
+     "sha256": "4361126189a2d0e0da66999352db58aaf1b4ca940faf8a8239d725f8303d890d",
+     "url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/andika/Andika-Bold.ttf"
+    }
+   ]
+  },
+  {
+   "id": "comic-neue",
+   "name": "Comic Neue",
+   "by": "Craig Rozynski",
+   "why": "Round and friendly, like Comic Sans but tidier",
+   "licence": "SIL Open Font License 1.1",
+   "licence_url": "https://openfontlicense.org",
+   "source": "Google Fonts (github.com/google/fonts, commit 47d54ca)",
+   "page": "https://github.com/crozynski/comicneue",
+   "fallback": "'Comic Sans MS', sans-serif",
+   "preview": "fonts/previews/comic-neue.woff",
+   "files": [
+    {
+     "file": "ComicNeue-Regular.ttf",
+     "weight": "400",
+     "bytes": 57248,
+     "sha256": "a0ee5a37c8b27c4db0700137d928598b1e23b0089e1546a8961909176b779360",
+     "url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/comicneue/ComicNeue-Regular.ttf"
+    },
+    {
+     "file": "ComicNeue-Bold.ttf",
+     "weight": "700",
+     "bytes": 55716,
+     "sha256": "3e7e5fccfd7e0788f317b43312151c1bd5cf058c9697a8d83eac3939050bd61e",
+     "url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/comicneue/ComicNeue-Bold.ttf"
+    }
+   ]
+  },
+  {
+   "id": "inter",
+   "name": "Inter",
+   "by": "Rasmus Andersson",
+   "why": "Plain and clear, made for screens",
+   "licence": "SIL Open Font License 1.1",
+   "licence_url": "https://openfontlicense.org",
+   "source": "Google Fonts (github.com/google/fonts, commit 47d54ca)",
+   "page": "https://github.com/rsms/inter",
+   "fallback": "'Segoe UI', system-ui, sans-serif",
+   "preview": "fonts/previews/inter.woff",
+   "files": [
+    {
+     "file": "Inter[opsz,wght].ttf",
+     "weight": "100 900",
+     "bytes": 876576,
+     "sha256": "29160a80ff49ddcab2c97711247e08b1fab27a484a329ce8b813d820dc559031",
+     "url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/inter/Inter%5Bopsz,wght%5D.ttf"
+    }
+   ]
+  },
+  {
+   "id": "literata",
+   "name": "Literata",
+   "by": "TypeTogether for Google",
+   "why": "A book serif made for long reading on screens",
+   "licence": "SIL Open Font License 1.1",
+   "licence_url": "https://openfontlicense.org",
+   "source": "Google Fonts (github.com/google/fonts, commit 47d54ca)",
+   "page": "https://github.com/googlefonts/literata",
+   "fallback": "'Sitka Text', Georgia, serif",
+   "preview": "fonts/previews/literata.woff",
+   "files": [
+    {
+     "file": "Literata[opsz,wght].ttf",
+     "weight": "200 900",
+     "bytes": 955132,
+     "sha256": "b41138c9373112f32abb589cc22e8674b06ed4048b0c513be922bdd26f274440",
+     "url": "https://raw.githubusercontent.com/google/fonts/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/literata/Literata%5Bopsz,wght%5D.ttf"
+    }
+   ]
+  }
+ ]
+}

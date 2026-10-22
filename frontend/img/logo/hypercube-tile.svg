@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="NeuroVault">
+<title>NeuroVault</title>
+<desc>NeuroVault tile, lit from the upper left. Colours come from CSS variables: --logo-ink (big cube, the theme text colour), --logo-accent (small cube),
+--logo-bg (the theme background), --logo-tile (the tile, a step from the background toward the text colour),
+--logo-light-theme (0 dark, 1 light). logo-vars.js makes them from a theme and accent. Without them it draws in Soft Slate and Sand.</desc>
+<rect width="24" height="24" rx="5.5" style="fill:var(--logo-tile, #37383a)"/>
+<g transform="translate(3.600 3.600) scale(0.7000)">
+<path d="M12.00 12.00L3.56 7.13L12.00 2.25Z" style="fill:var(--logo-ink, #ece5d8)"/>
+<path d="M12.00 12.00L3.56 7.13L12.00 2.25Z" style="fill:var(--logo-bg, #1e2024);fill-opacity:calc(0.000 + 0.550 * var(--logo-light-theme, 0))"/>
+<path d="M12.00 12.00L12.00 2.25L20.44 7.13Z" style="fill:var(--logo-ink, #ece5d8)"/>
+<path d="M12.00 12.00L12.00 2.25L20.44 7.13Z" style="fill:var(--logo-bg, #1e2024);fill-opacity:calc(0.352 + -0.114 * var(--logo-light-theme, 0))"/>
+<path d="M12.00 12.00L20.44 7.13L20.44 16.88Z" style="fill:var(--logo-ink, #ece5d8)"/>
+<path d="M12.00 12.00L20.44 7.13L20.44 16.88Z" style="fill:var(--logo-bg, #1e2024);fill-opacity:calc(0.620 + -0.620 * var(--logo-light-theme, 0))"/>
+<path d="M12.00 12.00L20.44 16.88L12.00 21.75Z" style="fill:var(--logo-ink, #ece5d8)"/>
+<path d="M12.00 12.00L20.44 16.88L12.00 21.75Z" style="fill:var(--logo-bg, #1e2024);fill-opacity:calc(0.620 + -0.620 * var(--logo-light-theme, 0))"/>
+<path d="M12.00 12.00L12.00 21.75L3.56 16.88Z" style="fill:var(--logo-ink, #ece5d8)"/>
+<path d="M12.00 12.00L12.00 21.75L3.56 16.88Z" style="fill:var(--logo-bg, #1e2024);fill-opacity:calc(0.582 + -0.548 * var(--logo-light-theme, 0))"/>
+<path d="M12.00 12.00L3.56 16.88L3.56 7.12Z" style="fill:var(--logo-ink, #ece5d8)"/>
+<path d="M12.00 12.00L3.56 16.88L3.56 7.12Z" style="fill:var(--logo-bg, #1e2024);fill-opacity:calc(0.101 + 0.359 * var(--logo-light-theme, 0))"/>
+<path d="M12.00 12.00L8.02 9.70L12.00 7.40Z" style="fill:var(--logo-accent, #d9b97a)"/>
+<path d="M12.00 12.00L8.02 9.70L12.00 7.40Z" style="fill:var(--logo-bg, #1e2024);fill-opacity:calc(0.000 + 0.550 * var(--logo-light-theme, 0))"/>
+<path d="M12.00 12.00L12.00 7.40L15.98 9.70Z" style="fill:var(--logo-accent, #d9b97a)"/>
+<path d="M12.00 12.00L12.00 7.40L15.98 9.70Z" style="fill:var(--logo-bg, #1e2024);fill-opacity:calc(0.352 + -0.114 * var(--logo-light-theme, 0))"/>
+<path d="M12.00 12.00L15.98 9.70L15.98 14.30Z" style="fill:var(--logo-accent, #d9b97a)"/>
+<path d="M12.00 12.00L15.98 9.70L15.98 14.30Z" style="fill:var(--logo-bg, #1e2024);fill-opacity:calc(0.620 + -0.620 * var(--logo-light-theme, 0))"/>
+<path d="M12.00 12.00L15.98 14.30L12.00 16.60Z" style="fill:var(--logo-accent, #d9b97a)"/>
+<path d="M12.00 12.00L15.98 14.30L12.00 16.60Z" style="fill:var(--logo-bg, #1e2024);fill-opacity:calc(0.620 + -0.620 * var(--logo-light-theme, 0))"/>
+<path d="M12.00 12.00L12.00 16.60L8.02 14.30Z" style="fill:var(--logo-accent, #d9b97a)"/>
+<path d="M12.00 12.00L12.00 16.60L8.02 14.30Z" style="fill:var(--logo-bg, #1e2024);fill-opacity:calc(0.582 + -0.548 * var(--logo-light-theme, 0))"/>
+<path d="M12.00 12.00L8.02 14.30L8.02 9.70Z" style="fill:var(--logo-accent, #d9b97a)"/>
+<path d="M12.00 12.00L8.02 14.30L8.02 9.70Z" style="fill:var(--logo-bg, #1e2024);fill-opacity:calc(0.101 + 0.359 * var(--logo-light-theme, 0))"/>
+<path d="M12.00 7.40L12.00 2.25M15.98 9.70L20.44 7.13M15.98 14.30L20.44 16.88M12.00 16.60L12.00 21.75M8.02 14.30L3.56 16.88M8.02 9.70L3.56 7.12" style="fill:none;stroke:var(--logo-tile, #37383a);stroke-width:0.7;stroke-linecap:round"/>
+</g>
+</svg>

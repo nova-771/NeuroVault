@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeuroVault</title>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/tables.css"><!-- Build P: table controls and rich tables (mockups R48, R48b, R48c) -->
+<link rel="stylesheet" href="css/callouts.css"><!-- Build P (QC 40): Obsidian callouts -->
+<link rel="stylesheet" href="css/ai-lock.css"><!-- R68: keep a project off cloud AI -->
+<link rel="stylesheet" href="css/cloud-ai.css"><!-- Build N (R56): AI in the cloud with your own key -->
+</head>
+<body data-theme="obsidian" data-dark="true" data-accent="violet" data-font="opendyslexic" data-textsize="m" data-inspector="shown">
+<!-- The window: the app draws its own window bar (frameless, R8). Everything inside #app is re-rendered by renderAll(). -->
+<div class="frame" id="frame"><div class="app" id="app"></div></div>
+<!-- Resize edges for the frameless window (actions.js); hidden while maximised -->
+<div class="win-edge" data-edge="n"></div><div class="win-edge" data-edge="s"></div><div class="win-edge" data-edge="e"></div><div class="win-edge" data-edge="w"></div>
+<div class="win-edge" data-edge="nw"></div><div class="win-edge" data-edge="ne"></div><div class="win-edge" data-edge="sw"></div><div class="win-edge" data-edge="se"></div>
+<!-- Plain files loaded in order, no build step. ?check=1 adds js/check.js (dev only). -->
+<script src="js/mute.js"></script><!-- Build N (QC 71): ?mute=1 or ?check=1 mutes every sound (first, before anything can play) -->
+<script src="js/log-r95.js"></script><!-- Build M (QC 95): page errors and long stalls into the app log (second, before anything else can fail) -->
+<script src="js/icons.js"></script>
+<script src="js/store.js"></script>
+<!-- Phase 2: Markdown for the Word/Docs editor (vendored, offline) -->
+<script src="vendor/marked-18.0.14.umd.js"></script>
+<script src="vendor/turndown-7.2.4.browser.umd.js"></script>
+<script src="vendor/highlight-11.11.1.min.js"></script><!-- Build V (R57): code block colours (BSD-3-Clause, vendored, offline) -->
+<script src="js/markdown.js"></script>
+<script src="js/render-notes.js"></script>
+<script src="js/render-tasks.js"></script>
+<script src="js/render-timer.js"></script>
+<script src="js/render-views.js"></script>
+<script src="js/render-settings.js"></script>
+<script src="js/render-widgets.js"></script>
+<script src="js/capture.js"></script>
+<script src="js/popout.js"></script><!-- Build H: stickies and the quick timer popped out of the app -->
+<script src="js/render-shell.js"></script>
+<script src="js/render-modules.js"></script><!-- Build M: the module sidebars, the Timer's session page and note history (mockups R42 and R46) -->
+<script src="js/render-voice.js"></script><!-- Phase 6B: voice rambler -->
+<script src="js/read-aloud.js"></script><!-- Phase 6C: read aloud -->
+<script src="js/voice-attach.js"></script><!-- Build A: voice ramble v2 and attachments -->
+<script src="js/wrapup.js"></script><!-- Build F: the end-of-day wrap-up and the morning launchpad -->
+<script src="js/render-ai.js"></script><!-- Build B: local AI -->
+<script src="js/reading.js"></script><!-- Build E: Reading & comfort cards, More fonts, Reset -->
+<script src="js/accents.js"></script><!-- Build G: accent colours, any colour as the accent, colour vision -->
+<script src="js/dictionary.js"></script><!-- Build J: the dictionary and thesaurus, your own words, the word popover -->
+<script src="js/year.js"></script><!-- Build J: the whole year on Timer → Insights -->
+<script src="js/convert.js"></script><!-- Build K: Ctrl+K → Convert PDF to Markdown (PDF and Word files to notes) -->
+<script src="js/ai-notes.js"></script><!-- Build N: Summarise this note, Ask about this note, Tidy up with AI (mockups R43, R45, R46) -->
+<script src="js/ai-chat.js"></script><!-- Build N round 6: Ask about this note as a chat, docked or a free window (mockup R50) -->
+<script src="js/actions.js"></script>
+<script src="js/editor.js"></script><!-- Editor QC: what the note editor does (after actions.js: it uses app) -->
+<script src="js/setup.js"></script><!-- Build D: the guided setup (after actions.js: it wraps boot) -->
+<script src="js/vault.js"></script><!-- Build V: notes as .md files in the vault folder; the setup's step 1, the one-time move, Settings → Vault & files (after setup.js) -->
+<script src="js/dialogs.js"></script><!-- Build L: one dialog and popover system (mockup R41): the anatomy, popovers under their button, a click away, Undo -->
+<script src="js/lists-drop.js"></script><!-- Build O: the Brain Dump and Sticky Notes lists, files dropped in (mockup R47 / R47b) -->
+<script src="js/round6.js"></script><!-- Build M · round 6: the Brain Dump as a free window (mockup R49, locked) -->
+<script src="js/panes.js"></script><!-- Build M · R44: tabs for notes only; modules dock beside a note by dragging their rail icon (up to three panes) -->
+<script src="js/shortcuts.js"></script><!-- Build M (QC 4 · 31): a shortcut for every rail and window-bar button, in its tooltip and Settings -->
+<script src="js/tables.js"></script><!-- Build P: table controls and rich tables (after dialogs.js: it uses dlg and placeUnder) -->
+<script src="js/callouts.js"></script><!-- Build P (QC 40): Obsidian callouts in the editor (after editor.js) -->
+<script src="js/editor-n.js"></script><!-- Build N: rich tables use the side room, clicks below or beside the text, the Image button (QC 50, 51, 56; after editor.js and tables.js) -->
+<script src="js/parity.js"></script><!-- Build M parity round (mockup R52): resizable side panels, no Windows right-click menu, the toolbar Attach, Position, Width and Autohide (after editor.js, editor-n.js and lists-drop.js) -->
+<script src="js/codeblocks.js"></script><!-- Build V (R57): code blocks like VS Code: colours (highlight.js), language, Copy, line numbers, Tab, pairs, the light check (after editor.js, tables.js and parity.js) -->
+<script src="js/photos.js"></script><!-- Build V (R59): photos in notes: captions, numbered pins (a setting), the photo's bar (after voice-attach.js and codeblocks.js) -->
+<script src="js/photos-edit.js"></script><!-- Build V (R59): editing photos: crop, rotate, flip on the bar, mark-up in a window; always a copy (after photos.js) -->
+<script src="js/dict-r56.js"></script><!-- Build M · R56: the dictionary at setup, in Settings → Editor → Dictionary, and the online lookup (after dictionary.js, setup.js and parity.js) -->
+<script src="js/tasks-r59.js"></script><!-- Build M · R59: tasks kept out of notes (after store.js, render-notes.js, render-voice.js, voice-attach.js and render-modules.js) -->
+<script src="js/insp-tabs.js"></script><!-- Build N (R54): the right sidebar's tabs are icons, Alt+1–5; the docked chat is its Ask tab (after ai-chat.js and shortcuts.js) -->
+<script src="js/cloud-ai.js"></script><!-- Build N (R56): AI in the cloud with your own key: the cards, Get a free key, the first-use notice, who answered, the free limit -->
+<script src="js/ai-settings.js"></script><!-- Build N (R60): Settings → AI models reworked, one page or four tabs -->
+<script src="js/ai-lock.js"></script><!-- R68: keep a project, folder or note off cloud AI (after ai-settings.js: it adds a section to its Overview tab) -->
+<script src="js/agent-chat.js"></script><!-- Build N (R67): the Agent, in the Ask chat (agent.py) -->
+<script src="js/ask-voice.js"></script><!-- Build N (R69): speak a question in Ask, the Agent and the floating window (after agent-chat.js and render-voice.js) -->
+<script src="js/logo-vars.js"></script><!-- Build N: the logo's colours from a theme and accent (design/logo on claude/logo-04b80e) -->
+<script src="js/logo.js"></script><!-- Build N: the hypercube in the window bar, and the window and taskbar icon, in your theme and accent (last: it wraps renderTitlebar) -->
+<script src="js/mindmap-r57.js"></script><!-- Build M (R57): a mind map of a note, beside it (after panes.js, render-shell.js and tasks-r59.js) -->
+<script src="js/blocks-r105.js"></script><!-- Build M (QC 105): move attachments, code blocks, tables, images and callouts up or down: a handle to drag, Alt+Shift+↑ / ↓ (after editor.js, tables.js and photos.js) -->
+<script src="js/docviewer.js"></script><!-- Build DV (R66): PDF and Word files open in their own viewer window; the Annotated chip, Ctrl+K and the Timeline (after voice-attach.js, render-widgets.js, render-modules.js, popout.js and photos.js) -->
+<script src="js/tooltip.js"></script><!-- Build N (QC 70): only NeuroVault's own tooltips; every title becomes the app's (last: it wraps afterRender) -->
+</body>
+</html>

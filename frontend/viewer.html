@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Build DV (mockup R66): the document viewer's own window. The CSP is doc-viewer-options.md's, as written: no network at all
+     (connect-src 'none'), no eval, no inline script, nothing framed, no forms. The document arrives as bytes from ViewerApi. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data: blob:; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeuroVault viewer</title>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="viewer/viewer.css">
+</head>
+<body class="dv-body-page" data-theme="obsidian" data-dark="true" data-accent="violet" data-font="opendyslexic" data-textsize="m">
+<div class="frame dv-frame" id="frame"><div class="app dv-win" id="app" role="application" aria-label="Document viewer"></div></div>
+<div class="win-edge" data-edge="n"></div><div class="win-edge" data-edge="s"></div><div class="win-edge" data-edge="e"></div><div class="win-edge" data-edge="w"></div>
+<div class="win-edge" data-edge="nw"></div><div class="win-edge" data-edge="ne"></div><div class="win-edge" data-edge="sw"></div><div class="win-edge" data-edge="se"></div>
+<script src="js/mute.js"></script>
+<script src="js/log-r95.js"></script>
+<script src="js/icons.js"></script>
+<script src="viewer/renderers.js"></script>
+<script src="viewer/viewer.js"></script>
+<script src="js/tooltip.js"></script><!-- the app's own tooltips (after viewer.js: it wraps afterRender) -->
+</body>
+</html>

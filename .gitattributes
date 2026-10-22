@@ -1,0 +1,6 @@
+# Build DV: the document viewer's vendored libraries are checked byte for byte against their pinned SHA-256 (vendor-plan.json):
+# never convert their line endings
+frontend/viewer/vendor/pdfjs/** -text
+frontend/viewer/vendor/docx/** -text
+frontend/viewer/vendor/jszip/** -text
+frontend/viewer/vendor/dompurify/** -text

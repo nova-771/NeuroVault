@@ -1,0 +1,62 @@
+/* NeuroVault · Build P: table controls and rich tables in the note (mockups R48, R48b and R48c; js/tables.js).
+   From design/design-profile.md: §3 one of each (28px icon buttons, one pressed look, R41's menu), §4 still (the tools float in a
+   gutter round the table and never push the text), §5 visible while you're in the table, §8 calm (nothing shows until the caret or
+   the pointer is there), §9 familiar. Rich tables use the editor's own highlight and text colours. */
+.app .ed-grid > .ed-pane, .app .ed-pane > .doc { min-width: 0; }   /* the note column never grows to fit a wide table: the table scrolls inside itself */
+.app .ed-pane { position: relative; }   /* the tools' layer sits beside the note and scrolls with it */
+.app .doc table { display: block; width: max-content; max-width: calc(100% - 34px); overflow-x: auto; margin: 22px 12px var(--sp-3) 22px; }   /* room for the grips and the last + on every side */
+.app .doc th, .app .doc td { vertical-align: top; overflow-wrap: break-word; min-width: 72px; max-width: 360px; }
+/* a column's alignment (the separator row's :---: / ---:, QC 24): the app's text-align: left on cells hid the align attribute */
+.app .doc :is(td, th)[align="center"] { text-align: center; } .app .doc :is(td, th)[align="right"] { text-align: right; } .app .doc :is(td, th)[align="justify"] { text-align: justify; }
+.app .doc table:has(> colgroup > col[width]) :is(th, td) { max-width: none; }
+/* a rich table: its tag sits under it */
+.app .doc table:is([data-nv-borders="outer"], [data-nv-borders="none"], :has(> colgroup > col[width], :is(td, th):is([colspan]:not([colspan="1"]), [rowspan]:not([rowspan="1"]), [data-nv-bg], [data-nv-fg], [data-nv-va]), :is(td, th) :is(ul, ol, input))) { margin-bottom: 36px; }
+.app .doc :is(td, th)[data-nv-bg] { background: var(--dot); color: var(--on-hl); }
+.app .doc [data-nv-bg="yellow"] { --dot: var(--hl-yellow); } .app .doc [data-nv-bg="green"] { --dot: var(--hl-green); } .app .doc [data-nv-bg="blue"] { --dot: var(--hl-blue); } .app .doc [data-nv-bg="pink"] { --dot: var(--hl-pink); } .app .doc [data-nv-bg="orange"] { --dot: var(--hl-orange); }
+.app .doc [data-nv-fg="red"] { color: var(--tc-red); } .app .doc [data-nv-fg="orange"] { color: var(--tc-orange); } .app .doc [data-nv-fg="green"] { color: var(--tc-green); } .app .doc [data-nv-fg="blue"] { color: var(--tc-blue); } .app .doc [data-nv-fg="violet"] { color: var(--tc-violet); } .app .doc [data-nv-fg="grey"] { color: var(--tc-grey); }
+.app .doc [data-nv-va="middle"] { vertical-align: middle; } .app .doc [data-nv-va="bottom"] { vertical-align: bottom; }
+.app .doc table[data-nv-borders="outer"] { border: 1px solid var(--border-strong); } .app .doc table[data-nv-borders="outer"] :is(th, td) { border-color: transparent; }
+.app .doc table[data-nv-borders="none"] :is(th, td) { border-color: transparent; }
+.app .doc :is(td, th) :is(ul, ol) { margin: 0; padding-left: 1.2em; }
+.app .doc :is(td, th) input[type="checkbox"] { accent-color: var(--accent); margin: 0 4px 0 0; vertical-align: -2px; }
+/* the layer: grips over each column and beside each row, a + on every gap, a resize edge on every column, the rich tag */
+.app .tb-layer { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 2; }
+.app .tb-grip, .app .tb-plus { position: absolute; display: grid; place-items: center; padding: 0; border: 0; border-radius: var(--r-sm, 6px); background: transparent; color: var(--muted); cursor: grab; }
+.app .tb-grip { width: 20px; height: 20px; }
+.app .tb-grip svg { width: 14px; height: 14px; }
+.app .tb-grip--col svg { transform: rotate(90deg); }
+.app .tb-plus { width: 16px; height: 16px; cursor: pointer; background: var(--card); box-shadow: 0 0 0 1px var(--border); }
+.app .tb-plus svg { width: 12px; height: 12px; }
+.app .tb-grip:hover, .app .tb-plus:hover { background: var(--hover); color: var(--text); }
+.app .tb-grip:focus-visible, .app .tb-plus:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.app .tb-drop { position: absolute; border: 2px solid var(--accent); border-radius: 2px; pointer-events: none; }   /* where a dragged row or column lands */
+.app .tb-colsize { position: absolute; width: 8px; cursor: col-resize; z-index: 1; }
+.app .tb-colsize::after { content: ""; position: absolute; left: 3px; top: 0; bottom: 0; width: 2px; border-radius: 1px; background: var(--accent); opacity: 0; transition: opacity .12s; }
+.app .tb-colsize:hover::after { opacity: 1; }
+.app .tb-richtag { position: absolute; transform: translateX(-100%); height: 20px; padding: 0 8px; display: inline-flex; align-items: center; border-radius: var(--r-pill); background: var(--hover); color: var(--muted); font-size: var(--fs-2xs, 11px); white-space: nowrap; cursor: help; }
+/* the toolbar: 6px over the table's gutter, one row of 28px buttons */
+.app .tb-bar { position: absolute; z-index: var(--z-menu); display: flex; align-items: center; gap: 2px; padding: 4px; box-shadow: var(--shadow-float); }
+.app .tb-group { display: inline-flex; gap: 2px; }
+.app .tb-sep { width: 1px; height: 20px; margin: 0 4px; background: var(--border); }
+.app .tb-bar [aria-pressed="true"], .app .tb-row [aria-checked="true"], .app .tb-bar [aria-expanded="true"] { background: var(--accent-bg); color: var(--accent-text); }
+.app .tb-bar [aria-disabled="true"], .app .tb-menu [aria-disabled="true"] { opacity: .38; cursor: default; }
+/* the menus (right-click, a grip's, More) and the pickers: R41's menu with group heads and an honest foot */
+.app .tb-menu { min-width: 260px; max-width: 320px; }
+.app .tb-mhead { padding: 6px var(--sp-3) 2px; font-size: var(--fs-2xs, 11px); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.app .tb-row { display: flex; align-items: center; gap: 4px; padding: 2px var(--sp-3); }
+.app .tb-mlabel { flex: 1 1 auto; font-size: var(--fs-sm); }
+.app .tb-row .hl-dot { width: 24px; height: 24px; }
+.app .tb-row .hl-dot[aria-checked="true"] { box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--accent); }
+.app .tb-menu [data-danger] { color: var(--danger-text, var(--danger)); }
+.app .tb-menu .menu-item[aria-checked="true"] { color: var(--accent-text); background: var(--accent-bg); }
+.app .tb-foot { padding: 6px var(--sp-3) 4px; font-size: var(--fs-xs); color: var(--muted); line-height: 1.45; }
+.app .tb-pick { width: auto; min-width: 0; gap: var(--sp-2); padding: var(--sp-2); }
+.app .tb-pick .tb-row { padding: 2px 0; }
+/* the two dialogs */
+.app .tb-loss { margin: var(--sp-2) 0; padding-left: 1.2em; }
+.app .tb-loss li { margin: 2px 0; }
+.app .tb-rawcols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-3); margin-bottom: var(--sp-3); }
+.app .tb-rawcol { display: flex; flex-direction: column; gap: var(--sp-1); min-width: 0; }
+.app .tb-rawcol.is-now .eyebrow { color: var(--accent-text); }
+.app .tb-src { margin: 0; max-height: 320px; overflow: auto; padding: var(--sp-2) var(--sp-3); border-radius: var(--r-sm, 6px); background: var(--panel); font-size: var(--fs-xs); white-space: pre; }
+@container main (max-width: 760px) { .app .tb-rawcols { grid-template-columns: minmax(0, 1fr); } }

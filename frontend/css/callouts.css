@@ -1,0 +1,49 @@
+/* NeuroVault · Build P (QC 40): Obsidian callouts in the note (js/callouts.js, markdown.js). "> [!type]± Title" draws as a box in the
+   type's colour with an icon and a title row; the [!type] marker is never shown (it lives in data-callout), the title stays text you edit.
+   Colours are the editor's own text colours (--tc-*, set per theme) and the accent, so every theme keeps them readable.
+   Icons: Lucide (ISC), wireframe, drawn as masks in currentColor. An unknown type looks like a note. */
+.app .doc blockquote.callout { --co: var(--tc-blue); --co-line: var(--tc-blue); position: relative; border-left-color: var(--co-line); background: color-mix(in srgb, var(--co-line) 7%, transparent);
+  --co-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20h9'/%3E%3Cpath d='M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z'/%3E%3C/svg%3E"); }
+.app .doc .callout > .callout-title { position: relative; min-height: 1.5em; margin: 0 0 var(--sp-1); padding-left: 24px; color: color-mix(in srgb, var(--co) 70%, var(--text)); font-weight: 700; }   /* the type's hue, a little of the text colour: 4.5:1 in every theme */
+.app .doc blockquote.callout > :last-child { margin-bottom: 0; }
+.app .doc .callout > .callout-title::before { content: ""; position: absolute; left: 0; top: calc(.75em - 8px); width: 16px; height: 16px; background: currentColor;
+  -webkit-mask: var(--co-icon) center / contain no-repeat; mask: var(--co-icon) center / contain no-repeat; }
+/* no title: the type's name, as Obsidian shows it (not saved: it's drawn, not typed) */
+.app .doc .callout > .callout-title:is(:empty, :has(> br:only-child))::after { content: attr(data-callout); text-transform: capitalize; pointer-events: none; }
+/* folding: [!type]- starts folded, [!type]+ open; the chevron at the right of the title row toggles it (the .md keeps its marker) */
+.app .doc blockquote.callout[data-callout-fold] > .callout-title { padding-right: 28px; }
+.app .doc blockquote.callout[data-callout-fold]::after { content: ""; position: absolute; right: var(--sp-3); top: calc(var(--sp-2) + .75em - 8px); width: 16px; height: 16px; background: var(--co); cursor: pointer; transition: transform .12s;
+  -webkit-mask: var(--co-chev) center / contain no-repeat; mask: var(--co-chev) center / contain no-repeat;
+  --co-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); }
+.app .doc blockquote.callout[data-folded]::after { transform: rotate(-90deg); }
+.app .doc blockquote.callout[data-folded] > :not(.callout-title) { display: none; }
+/* the types (Obsidian's, with their other names) */
+.app .doc blockquote.callout:is([data-callout="abstract" i], [data-callout="summary" i], [data-callout="tldr" i]) { --co: var(--accent-text); --co-line: var(--accent);
+  --co-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='8' y='2' width='8' height='4' rx='1'/%3E%3Cpath d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M12 11h4M12 16h4M8 11h.01M8 16h.01'/%3E%3C/svg%3E"); }
+.app .doc blockquote.callout[data-callout="info" i] {
+  --co-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 16v-4M12 8h.01'/%3E%3C/svg%3E"); }
+.app .doc blockquote.callout[data-callout="todo" i] {
+  --co-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E"); }
+.app .doc blockquote.callout:is([data-callout="tip" i], [data-callout="hint" i], [data-callout="important" i]) { --co: var(--tc-violet); --co-line: var(--tc-violet);
+  --co-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z'/%3E%3C/svg%3E"); }
+.app .doc blockquote.callout:is([data-callout="success" i], [data-callout="check" i], [data-callout="done" i]) { --co: var(--tc-green); --co-line: var(--tc-green);
+  --co-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E"); }
+.app .doc blockquote.callout:is([data-callout="question" i], [data-callout="help" i], [data-callout="faq" i]) { --co: var(--tc-orange); --co-line: var(--tc-orange);
+  --co-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01'/%3E%3C/svg%3E"); }
+.app .doc blockquote.callout:is([data-callout="warning" i], [data-callout="caution" i], [data-callout="attention" i]) { --co: var(--tc-orange); --co-line: var(--tc-orange);
+  --co-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3ZM12 9v4M12 17h.01'/%3E%3C/svg%3E"); }
+.app .doc blockquote.callout:is([data-callout="failure" i], [data-callout="fail" i], [data-callout="missing" i]) { --co: var(--tc-red); --co-line: var(--tc-red);
+  --co-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18M6 6l12 12'/%3E%3C/svg%3E"); }
+.app .doc blockquote.callout:is([data-callout="danger" i], [data-callout="error" i]) { --co: var(--tc-red); --co-line: var(--tc-red);
+  --co-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 2 3 14h9l-1 8 10-12h-9l1-8z'/%3E%3C/svg%3E"); }
+.app .doc blockquote.callout[data-callout="bug" i] { --co: var(--tc-red); --co-line: var(--tc-red);
+  --co-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='8' y='6' width='8' height='14' rx='4'/%3E%3Cpath d='m8 2 1.9 1.9M16 2l-1.9 1.9M9 7.1V6a3 3 0 0 1 6 0v1.1M12 20v-9M8 13H3M21 13h-5M8 9 4.5 7M16 9l3.5-2M8 17l-3.5 2M16 17l3.5 2'/%3E%3C/svg%3E"); }
+.app .doc blockquote.callout[data-callout="example" i] { --co: var(--tc-violet); --co-line: var(--tc-violet);
+  --co-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01'/%3E%3C/svg%3E"); }
+.app .doc blockquote.callout:is([data-callout="quote" i], [data-callout="cite" i]) { --co: var(--tc-grey); --co-line: var(--tc-grey);
+  --co-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 21c3 0 7-1 7-8V5c0-1.25-.76-2-2-2H4c-1.25 0-2 .75-2 2v6c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 0-1 1v3c0 1 0 1 1 1zM15 21c3 0 7-1 7-8V5c0-1.25-.76-2-2-2h-4c-1.25 0-2 .75-2 2v6c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z'/%3E%3C/svg%3E"); }
+/* typing "> [!" offers the types */
+.app .co-pick { position: absolute; right: auto; width: max-content; z-index: var(--z-menu); min-width: 200px; max-height: 300px; overflow-y: auto; padding: var(--sp-1); }
+.app .co-pick .menu-item[aria-selected="true"] { background: var(--hover); }
+.app .co-pick .co-sw { width: 10px; height: 10px; border-radius: 50%; flex: none; background: var(--co); }
+.app .co-pick .co-alias { margin-left: auto; color: var(--muted); font-size: var(--fs-xs); }
